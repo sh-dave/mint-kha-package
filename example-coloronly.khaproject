@@ -1,0 +1,8 @@
+var project = new Project('example-coloronly');
+
+project.addSources('Sources');
+project.addSources('example/coloronly');
+project.addSources('Libraries/mint');
+project.addAssets('Assets/**');
+
+return project;
