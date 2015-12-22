@@ -1,5 +1,5 @@
 # mint-kha-package
-Tests to see how well mint and Kha work together
+Tests to see how well [mint](https://github.com/snowkit/mint) and [Kha](https://github.com/KTXSoftware/Kha) work together
 
 ## Todos
 
