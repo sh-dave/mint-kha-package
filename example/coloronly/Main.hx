@@ -69,7 +69,6 @@ class Main {
 			align : TextAlign.center,
 			align_vertical : TextAlign.center,
 			text_size : 16,
-			//onclick : button_eventHandler,
 			bounds_wrap : true,
 
 			options : {
@@ -78,12 +77,13 @@ class Main {
 				downSkin : kha.Color.Red,
 				disabledSkin : kha.Color.fromBytes(128, 128, 128),
 
-				defaultLabelSkin : kha.Color.Black,
-				highlightLabelSkin : kha.Color.Black,
-				downLabelSkin : kha.Color.Black,
-				disabledLabelSkin : kha.Color.Black,
-
-				labelFont : kha.Assets.fonts.nokiafc22,
+				label : {
+					font : kha.Assets.fonts.nokiafc22,
+					defaultSkin : kha.Color.Black,
+					highlightSkin : kha.Color.Black,
+					downSkin : kha.Color.Black,
+					disabledSkin : kha.Color.Black,
+				}
 			}
 		});
 
