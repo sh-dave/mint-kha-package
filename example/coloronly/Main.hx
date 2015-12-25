@@ -32,10 +32,6 @@ class Main {
 	}
 
     static function render( framebuffer : kha.Framebuffer ) {
-		// TODO (DK) just use System.pixelWidth/Height?
-		fbw = framebuffer.width;
-		fbh = framebuffer.height;
-
 		var g = backbuffer.g2;
 
 		g.begin(true, kha.Color.fromBytes(0, 64, 64));
@@ -116,7 +112,17 @@ class Main {
 				disabledSkin : kha.Color.fromBytes(128, 128, 128),
 			}
 		});
+	}
 
+	static var fbw(get, never) : Int;
+	static var fbh(get, never) : Int;
+
+	inline static function get_fbw() : Int {
+		return kha.System.pixelWidth;
+	}
+
+	inline static function get_fbh() : Int {
+		return kha.System.pixelHeight;
 	}
 
 	static function setupUiEvents() {
@@ -181,9 +187,6 @@ class Main {
 	static var backbuffer : kha.Image;
 	static var rendering : G2Rendering;
 	static var focusManager : mint.focus.Focus;
-
-	static var fbw : Int;
-	static var fbh : Int;
 
 	static var canvas : mint.Canvas;
 	static var progress : mint.Progress;

@@ -46,10 +46,7 @@ class LabelRenderer extends G2BaseRenderer {
 		graphics.font = options.font;
 		graphics.fontSize = Std.int(label.options.text_size);
 
-		// TODO (DK) robert needs to fix #198, then this #if can be removed and we see text in flash
-#if !sys_flash
 		graphics.drawString(label.text, control.x, control.y);
-#end
 
 // debugArea
 		graphics.color = kha.Color.Magenta;
