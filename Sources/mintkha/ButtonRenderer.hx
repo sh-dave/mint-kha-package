@@ -1,11 +1,13 @@
-package mintkha.coloronly;
+package mintkha;
+
+import mintkha.Skin;
 
 typedef ButtonOptions = {
 // button
-	var defaultSkin : kha.Color;
-	var highlightSkin : kha.Color;
-	var downSkin : kha.Color;
-	var disabledSkin : kha.Color;
+	var defaultSkin : Skin;
+	var highlightSkin : Skin;
+	var downSkin : Skin;
+	var disabledSkin : Skin;
 
 // label
 	var labelFont : kha.Font;
@@ -15,47 +17,39 @@ typedef ButtonOptions = {
 	var disabledLabelSkin : kha.Color;
 }
 
-class ButtonRenderer extends G2BaseRenderer {
+class ButtonRenderer extends G2Renderer {
     var button : mint.Button;
 
 	var options : ButtonOptions;
 
-	var stateColor : kha.Color;
+	var stateSkin : Skin;
 
     public function new( rendering : G2Rendering, control : mint.Button ) {
         super(rendering, this.button = control);
 
 		this.options = control.options.options;
 
-		stateColor = options.defaultSkin;
+		stateSkin = options.defaultSkin;
 
         button.onmouseenter.listen(function(e, c) {
-			stateColor = options.highlightSkin;
+			stateSkin = options.highlightSkin;
 		});
 
         button.onmouseleave.listen(function(e, c) {
-			stateColor = options.defaultSkin;
+			stateSkin = options.defaultSkin;
 		});
 
         button.onmousedown.listen(function(e, c) {
-			stateColor = options.downSkin;
+			stateSkin = options.downSkin;
 		});
 
         button.onmouseup.listen(function(e, c) {
-			stateColor = options.highlightSkin;
+			stateSkin = options.highlightSkin;
 		});
     }
 
 	override function renderG2( graphics : kha.graphics2.Graphics ) {
-		var colorGuard = graphics.color;
-
-		graphics.color = stateColor;
-
-		kha.graphics2.GraphicsExtension.fillPolygon(graphics, control.x, control.y, [
-			new kha.math.Vector2(0, 0), new kha.math.Vector2(control.w, 0), new kha.math.Vector2(control.w, control.h), new kha.math.Vector2(0, control.h)
-		]);
-
-		graphics.color = colorGuard;
+		stateSkin.drawG2(graphics, control.x, control.y, control.w, control.h);
 	}
 
     override function ondepth( depth : Float ) {

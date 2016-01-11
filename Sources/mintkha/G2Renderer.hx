@@ -1,6 +1,6 @@
 package mintkha;
 
-class G2BaseRenderer extends mint.render.Render {
+class G2Renderer extends mint.render.Render {
     var khaRendering : G2Rendering;
 
 	public var depth : Float;

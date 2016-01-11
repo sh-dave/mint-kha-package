@@ -1,6 +1,6 @@
-package mintkha.coloronly;
+package mintkha;
 
-class CanvasRenderer extends G2BaseRenderer {
+class CanvasRenderer extends G2Renderer {
     var canvas : mint.Canvas;
 
     public function new( rendering : G2Rendering, control : mint.Canvas ) {

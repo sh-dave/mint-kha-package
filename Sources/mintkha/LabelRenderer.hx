@@ -1,4 +1,4 @@
-package mintkha.coloronly;
+package mintkha;
 
 typedef LabelOptions = {
 	var font : kha.Font;
@@ -9,7 +9,7 @@ typedef LabelOptions = {
 	var disabledSkin : kha.Color;
 }
 
-class LabelRenderer extends G2BaseRenderer {
+class LabelRenderer extends G2Renderer {
     var label : mint.Label;
 	var options : LabelOptions;
 
@@ -49,8 +49,8 @@ class LabelRenderer extends G2BaseRenderer {
 		graphics.drawString(label.text, control.x, control.y);
 
 // debugArea
-		graphics.color = kha.Color.Magenta;
-		graphics.drawRect(control.x, control.y, control.w, control.h, 2);
+		//graphics.color = kha.Color.Magenta;
+		//graphics.drawRect(control.x, control.y, control.w, control.h, 2);
 // /debugArea
 
 		graphics.color = colorGuard;

@@ -1,5 +1,6 @@
-package mintkha.coloronly;
+package mintkha;
 
+// TODO (DK) implements with skin
 typedef ProgressOptions = {
 	var fillSkin : kha.Color;
 	var backgroundSkin : kha.Color;
@@ -13,7 +14,7 @@ typedef ProgressOptions = {
 	var paddingLeft : Float;
 }
 
-class ProgressRenderer extends G2BaseRenderer {
+class ProgressRenderer extends G2Renderer {
     var progress : mint.Progress;
 	var options : ProgressOptions;
 
