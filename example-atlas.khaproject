@@ -2,7 +2,9 @@ var project = new Project('example-atlas');
 
 project.addSources('Sources');
 project.addSources('example/atlas');
+
 project.addLibrary('mint');
-project.addAssets('Assets/**');
+
+project.addAssets('assets/**');
 
 return project;

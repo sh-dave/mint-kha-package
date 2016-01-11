@@ -1,11 +1,12 @@
 package mintkha;
 
 import mintkha.skin.NineSliceAtlasTextureSkin;
+import mintkha.support.Offset;
 import mintkha.support.Rectangle;
 import mintkha.support.TextureAtlas.AtlasModel;
 
 class ThemeTools {
-	public static function nineSliceSkin( texture : kha.Image, atlasModel : AtlasModel, id : String, grid : Rectangle ) : NineSliceAtlasTextureSkin {
+	public static function nineSliceSkin( texture : kha.Image, atlasModel : AtlasModel, id : String, grid : Rectangle, ?offset : Offset = null ) : NineSliceAtlasTextureSkin {
 		var region = Lambda.find(atlasModel.regions, function( region ) { return region.id == id; } );
 
 		if (region == null) {
@@ -13,6 +14,6 @@ class ThemeTools {
 			return null;
 		}
 
-		return new NineSliceAtlasTextureSkin(texture, region.x, region.y, region.width, region.height, grid);
+		return new NineSliceAtlasTextureSkin(texture, region.x, region.y, region.width, region.height, grid, offset);
 	}
 }

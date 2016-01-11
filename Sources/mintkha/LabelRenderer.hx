@@ -1,60 +1,32 @@
 package mintkha;
 
-typedef LabelOptions = {
-	var font : kha.Font;
+import mintkha.skin.LabelSkin;
 
-	var defaultSkin : kha.Color;
-	var highlightSkin : kha.Color;
-	var downSkin : kha.Color;
-	var disabledSkin : kha.Color;
+typedef LabelOptions = {
+	var defaultSkin : LabelSkin;
+	var highlightSkin : LabelSkin;
+	var downSkin : LabelSkin;
+	var disabledSkin : LabelSkin;
 }
 
 class LabelRenderer extends G2Renderer {
     var label : mint.Label;
 	var options : LabelOptions;
 
-	var stateColor : kha.Color;
+	// TODO (DK) 'setSkin' function?
+	@:allow(mintkha)
+	var stateSkin : LabelSkin;
 
     public function new( rendering : G2Rendering, control : mint.Label ) {
         super(rendering, this.label = control);
 
 		this.options = control.options.options;
 
-		stateColor = options.defaultSkin;
-
-        label.onmouseenter.listen(function(e, c) {
-			stateColor = options.highlightSkin;
-		});
-
-        label.onmouseleave.listen(function(e, c) {
-			stateColor = options.defaultSkin;
-		});
-
-        label.onmousedown.listen(function(e, c) {
-			stateColor = options.downSkin;
-		});
-
-        label.onmouseup.listen(function(e, c) {
-			stateColor = options.highlightSkin;
-		});
+		stateSkin = options.defaultSkin;
     }
 
 	override function renderG2( graphics : kha.graphics2.Graphics ) {
-		var colorGuard = graphics.color;
-
-		graphics.color = stateColor;
-		graphics.font = options.font;
-		graphics.fontSize = Std.int(label.options.text_size);
-		graphics.imageScaleQuality = kha.graphics2.ImageScaleQuality.High;
-
-		graphics.drawString(label.text, control.x + 8, control.y + 8);
-
-// debugArea
-		//graphics.color = kha.Color.Magenta;
-		//graphics.drawRect(control.x, control.y, control.w, control.h, 2);
-// /debugArea
-
-		graphics.color = colorGuard;
+		stateSkin.drawG2(graphics, control.x, control.y, control.w, control.h);
 	}
 
     override function ondepth( depth : Float ) {

@@ -2,7 +2,9 @@ var project = new Project('example-colored');
 
 project.addSources('Sources');
 project.addSources('example/colored');
+
 project.addLibrary('mint');
-project.addAssets('Assets/**');
+
+project.addAssets('assets/**');
 
 return project;

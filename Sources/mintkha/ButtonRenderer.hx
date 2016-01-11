@@ -1,20 +1,13 @@
 package mintkha;
 
 import mintkha.Skin;
+import mintkha.skin.LabelSkin;
 
 typedef ButtonOptions = {
-// button
 	var defaultSkin : Skin;
 	var highlightSkin : Skin;
 	var downSkin : Skin;
 	var disabledSkin : Skin;
-
-// label
-	var labelFont : kha.Font;
-	var defaultLabelSkin : kha.Color;
-	var highlightLabelSkin : kha.Color;
-	var downLabelSkin : kha.Color;
-	var disabledLabelSkin : kha.Color;
 }
 
 class ButtonRenderer extends G2Renderer {
@@ -31,20 +24,26 @@ class ButtonRenderer extends G2Renderer {
 
 		stateSkin = options.defaultSkin;
 
+		// TODO (DK) casting is crap, find a better design
+
         button.onmouseenter.listen(function(e, c) {
 			stateSkin = options.highlightSkin;
+			cast (button.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
 		});
 
         button.onmouseleave.listen(function(e, c) {
 			stateSkin = options.defaultSkin;
+			cast (button.label.renderer, LabelRenderer).stateSkin = control.options.options.label.defaultSkin;
 		});
 
         button.onmousedown.listen(function(e, c) {
 			stateSkin = options.downSkin;
+			cast (button.label.renderer, LabelRenderer).stateSkin = control.options.options.label.downSkin;
 		});
 
         button.onmouseup.listen(function(e, c) {
 			stateSkin = options.highlightSkin;
+			cast (button.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
 		});
     }
 

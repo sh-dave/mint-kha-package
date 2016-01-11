@@ -1,4 +1,4 @@
-@node kha/make flash --projectfile example-colored.khaproject --to build/example-colored-flash
+::@node kha/make flash --projectfile example-colored.khaproject --to build/example-colored-flash
 ::@node kha/make html5 --projectfile example-coloronly.khaproject --to build/example-coloronly
 ::@node kha/make windows --projectfile example-coloronly.khaproject --to build/example-coloronly-dx9 --visualstudio vs2010 --graphics direct3d9
 ::@node kha/make windows --projectfile example-coloronly.khaproject --to build/example-coloronly-dx11 --visualstudio vs2010 --graphics direct3d11

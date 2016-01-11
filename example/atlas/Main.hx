@@ -3,10 +3,12 @@ package;
 import mint.types.Types.InteractState;
 import mint.types.Types.MouseButton;
 import mint.types.Types.TextAlign;
+import mintkha.support.Offset;
+import mintkha.support.Rectangle;
 
 import mintkha.skin.NineSliceAtlasTextureSkin;
 
-typedef MyTheme = mintkha.theme.MetalWorksMobileTheme;
+typedef MyTheme = mintkha.theme.KenneyBasicTheme;
 
 class SkinnedExample {
 	var backbuffer : kha.Image;
@@ -21,8 +23,10 @@ class SkinnedExample {
 
 	var progressValue : Float = 0.0;
 
+	var theme = mintkha.theme.KenneyBasicTheme.blueTheme;
+
 	public function new() {
-		kha.System.init('mintkha-example-pretty', 512, 512, system_initializedHandler);
+		kha.System.init('mintkha-example-atlas', 512, 512, system_initializedHandler);
 	}
 
 	function system_initializedHandler() {
@@ -62,8 +66,8 @@ class SkinnedExample {
 	}
 
 	function setupTheme() {
-		themeAtlasModel = mintkha.support.StarlingAtlasXmlReader.read(Xml.parse(kha.Assets.blobs.metalworks_mobile_xml.toString()));
-		themeAtlasTexture = kha.Assets.images.metalworks_mobile;
+		themeAtlasModel = mintkha.support.StarlingAtlasXmlReader.read(Xml.parse(kha.Assets.blobs.basic_atlas_xml.toString()));
+		themeAtlasTexture = kha.Assets.images.basic_sheet;
 	}
 
 	function setupUi() {
@@ -91,19 +95,17 @@ class SkinnedExample {
 			bounds_wrap : true,
 
 			options : {
-				defaultSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, MyTheme.buttonUpSkinId, MyTheme.buttonNineSliceGrid),
-				highlightSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, MyTheme.buttonHoverSkinId, MyTheme.buttonNineSliceGrid),
-				downSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, MyTheme.buttonDownSkinId, MyTheme.buttonNineSliceGrid),
-				disabledSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, MyTheme.buttonDisabledSkinId, MyTheme.buttonNineSliceGrid),
+				defaultSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
+				highlightSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonHoverSkinId, theme.buttonNineSliceGrid),
+				downSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDownSkinId, theme.buttonNineSliceGrid, theme.buttonDownOffset),
+				disabledSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDisabledSkinId, theme.buttonNineSliceGrid),
 				depth : 1,
 
 				label : {
-//					font : Reflect.field(kha.Assets.fonts, 'Berlin Sans FB Demi Bold'),//.nokiafc22,
-					font : Reflect.field(kha.Assets.fonts, 'consola'),//.nokiafc22,
-					defaultSkin : kha.Color.fromValue(0xff0b333c),
-					highlightSkin : kha.Color.fromValue(0xff0b333c),
-					downSkin : kha.Color.fromValue(0xff0b333c),
-					disabledSkin : kha.Color.fromValue(0xff5b6770),
+					defaultSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
+					highlightSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
+					downSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 5)),
+					disabledSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff5b6770), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
 					depth : 0,
 				}
 			}
@@ -129,21 +131,21 @@ class SkinnedExample {
 			}
 		});
 
-		var helloLabel = new mint.Label({
-			parent : canvas,
-			x : 128, y : 304, w : 128, h : 16,
-
-			text : 'Hello World!',
-			text_size : 24,
-
-			options : {
-				font : kha.Assets.fonts.nokiafc22,
-				defaultSkin : kha.Color.Black,
-				highlightSkin : kha.Color.Yellow,
-				downSkin : kha.Color.Green,
-				disabledSkin : kha.Color.fromBytes(128, 128, 128),
-			}
-		});
+		//var helloLabel = new mint.Label({
+			//parent : canvas,
+			//x : 128, y : 304, w : 128, h : 16,
+//
+			//text : 'Hello World!',
+			//text_size : 24,
+//
+			//options : {
+				//font : kha.Assets.fonts.kenvector_future,
+				//defaultSkin : kha.Color.Black,
+				//highlightSkin : kha.Color.Yellow,
+				//downSkin : kha.Color.Green,
+				//disabledSkin : kha.Color.fromBytes(128, 128, 128),
+			//}
+		//});
 	}
 
 	var fbw(get, never) : Int;
