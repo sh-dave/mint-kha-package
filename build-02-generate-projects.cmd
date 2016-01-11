@@ -5,5 +5,6 @@
 ::@node kha/make windows --projectfile example-coloronly.khaproject --to build/example-coloronly-gl --visualstudio vs2010 --graphics opengl
 
 @node kha/make flash --projectfile example-atlas.khaproject --to build/example-atlas-flash
+@node kha/make html5 --projectfile example-atlas.khaproject --to build/example-atlas-html
 
 @pause

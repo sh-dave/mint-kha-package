@@ -45,8 +45,9 @@ class LabelRenderer extends G2Renderer {
 		graphics.color = stateColor;
 		graphics.font = options.font;
 		graphics.fontSize = Std.int(label.options.text_size);
+		graphics.imageScaleQuality = kha.graphics2.ImageScaleQuality.High;
 
-		graphics.drawString(label.text, control.x, control.y);
+		graphics.drawString(label.text, control.x + 8, control.y + 8);
 
 // debugArea
 		//graphics.color = kha.Color.Magenta;
@@ -57,7 +58,7 @@ class LabelRenderer extends G2Renderer {
 	}
 
     override function ondepth( depth : Float ) {
-		this.depth = depth;
+		this.mydepth = depth;
 		khaRendering.sortByDepth();
     }
 }

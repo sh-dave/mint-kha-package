@@ -6,9 +6,9 @@ import mint.types.Types.TextAlign;
 
 import mintkha.skin.NineSliceAtlasTextureSkin;
 
-typedef MyTheme = mintkha.theme.MetalWorksDesktopTheme;
+typedef MyTheme = mintkha.theme.MetalWorksMobileTheme;
 
-class PrettyExample {
+class SkinnedExample {
 	var backbuffer : kha.Image;
 	var rendering : mintkha.G2Rendering;
 	var focusManager : mint.focus.Focus;
@@ -22,7 +22,7 @@ class PrettyExample {
 	var progressValue : Float = 0.0;
 
 	public function new() {
-		kha.System.init('mintkha-example-pretty', 800, 600, system_initializedHandler);
+		kha.System.init('mintkha-example-pretty', 512, 512, system_initializedHandler);
 	}
 
 	function system_initializedHandler() {
@@ -38,13 +38,13 @@ class PrettyExample {
 	}
 
 	function update() {
-		//progressValue += 0.01;
-//
-		//if (progressValue >= 1.0) {
-			//progressValue -= 1.0;
-		//}
-//
-		//progress.progress = progressValue;
+		progressValue += 0.01;
+
+		if (progressValue >= 1.0) {
+			progressValue -= 1.0;
+		}
+
+		progress.progress = progressValue;
 	}
 
     function render( framebuffer : kha.Framebuffer ) {
@@ -62,8 +62,8 @@ class PrettyExample {
 	}
 
 	function setupTheme() {
-		themeAtlasModel = mintkha.support.StarlingAtlasXmlReader.read(Xml.parse(kha.Assets.blobs.metalworks_desktop_xml.toString()));
-		themeAtlasTexture = kha.Assets.images.metalworks_desktop;
+		themeAtlasModel = mintkha.support.StarlingAtlasXmlReader.read(Xml.parse(kha.Assets.blobs.metalworks_mobile_xml.toString()));
+		themeAtlasTexture = kha.Assets.images.metalworks_mobile;
 	}
 
 	function setupUi() {
@@ -76,6 +76,8 @@ class PrettyExample {
 			key_input : true,
 		});
 
+		var a = kha.Assets;
+
         focusManager = new mint.focus.Focus(canvas);
 
 		var pressMeButton = new mint.Button({
@@ -85,54 +87,63 @@ class PrettyExample {
 			text : 'PRESS ME!',
 			align : TextAlign.center,
 			align_vertical : TextAlign.center,
-			text_size : 16,
+			text_size : 9,
 			bounds_wrap : true,
 
 			options : {
-				defaultSkin : NineSliceAtlasTextureSkin.fromAtlasRegion(themeAtlasTexture, themeAtlasModel, 'button-up-skin0000', MyTheme.buttonNineSliceGrid),
-				highlightSkin : NineSliceAtlasTextureSkin.fromAtlasRegion(themeAtlasTexture, themeAtlasModel, 'button-up-skin0000', MyTheme.buttonNineSliceGrid),
-				downSkin : NineSliceAtlasTextureSkin.fromAtlasRegion(themeAtlasTexture, themeAtlasModel, 'button-down-skin0000', MyTheme.buttonNineSliceGrid),
-				disabledSkin : NineSliceAtlasTextureSkin.fromAtlasRegion(themeAtlasTexture, themeAtlasModel, 'button-disabled-skin0000', MyTheme.buttonNineSliceGrid),
+				defaultSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, MyTheme.buttonUpSkinId, MyTheme.buttonNineSliceGrid),
+				highlightSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, MyTheme.buttonHoverSkinId, MyTheme.buttonNineSliceGrid),
+				downSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, MyTheme.buttonDownSkinId, MyTheme.buttonNineSliceGrid),
+				disabledSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, MyTheme.buttonDisabledSkinId, MyTheme.buttonNineSliceGrid),
+				depth : 1,
 
 				label : {
-					font : kha.Assets.fonts.nokiafc22,
+//					font : Reflect.field(kha.Assets.fonts, 'Berlin Sans FB Demi Bold'),//.nokiafc22,
+					font : Reflect.field(kha.Assets.fonts, 'consola'),//.nokiafc22,
 					defaultSkin : kha.Color.fromValue(0xff0b333c),
 					highlightSkin : kha.Color.fromValue(0xff0b333c),
 					downSkin : kha.Color.fromValue(0xff0b333c),
 					disabledSkin : kha.Color.fromValue(0xff5b6770),
+					depth : 0,
 				}
 			}
 		});
 
-		//progress = new mint.Progress({
+		//var checkbox = new mint.Checkbox({
 			//parent : canvas,
-			//x : 128, y : 256, w : 128, h : 16,
-//
-			//options : {
-				//backgroundSkin : kha.Color.fromBytes(128, 128, 128),
-				//fillSkin : kha.Color.Green,
-//
-				//paddingTop : 4,
-				//paddingBottom : 4,
-				//paddingRight : 4,
-				//paddingLeft : 4,
-			//}
+			//x : 384, y : 128, w : 128, h : 16,
 		//});
-//
-		//var helloLabel = new mint.Label({
-			//parent : canvas,
-			//x : 128, y : 304, w : 128, h : 16,
-//
-			//text : 'Hello World!',
-//
-			//options : {
-				//font : kha.Assets.fonts.nokiafc22,
-				//defaultSkin : kha.Color.Black,
-				//highlightSkin : kha.Color.Yellow,
-				//downSkin : kha.Color.Green,
-				//disabledSkin : kha.Color.fromBytes(128, 128, 128),
-			//}
-		//});
+
+		progress = new mint.Progress({
+			parent : canvas,
+			x : 128, y : 256, w : 128, h : 16,
+
+			options : {
+				backgroundSkin : kha.Color.fromBytes(128, 128, 128),
+				fillSkin : kha.Color.Green,
+
+				paddingTop : 4,
+				paddingBottom : 4,
+				paddingRight : 4,
+				paddingLeft : 4,
+			}
+		});
+
+		var helloLabel = new mint.Label({
+			parent : canvas,
+			x : 128, y : 304, w : 128, h : 16,
+
+			text : 'Hello World!',
+			text_size : 24,
+
+			options : {
+				font : kha.Assets.fonts.nokiafc22,
+				defaultSkin : kha.Color.Black,
+				highlightSkin : kha.Color.Yellow,
+				downSkin : kha.Color.Green,
+				disabledSkin : kha.Color.fromBytes(128, 128, 128),
+			}
+		});
 	}
 
 	var fbw(get, never) : Int;
@@ -208,6 +219,6 @@ class PrettyExample {
 
 class Main {
 	public static function main() {
-		new PrettyExample();
+		new SkinnedExample();
 	}
 }

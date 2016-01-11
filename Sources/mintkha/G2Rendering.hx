@@ -19,7 +19,7 @@ class G2Rendering extends mint.render.Rendering {
             //case mint.List: new mint.render.luxe.List(this, cast control);
             //case mint.Scroll: new mint.render.luxe.Scroll(this, cast control);
             //case mint.Panel: new mint.render.luxe.Panel(this, cast control);
-            //case mint.Checkbox: new mint.render.luxe.Checkbox(this, cast control);
+            case mint.Checkbox: new mintkha.CheckboxRenderer(this, cast control);
             //case mint.Window: new mint.render.luxe.Window(this, cast control);
             //case mint.TextEdit: new mint.render.luxe.TextEdit(this, cast control);
             //case mint.Dropdown: new mint.render.luxe.Dropdown(this, cast control);
@@ -32,7 +32,7 @@ class G2Rendering extends mint.render.Rendering {
 	// TODO (DK) lazy in renderG2 or something instead of immediate?
 	public function sortByDepth() {
 		elements.sort(function( l, r ) {
-			return l.depth < r.depth ? -1 : 1;
+			return l.mydepth < r.mydepth ? -1 : 1;
 		});
 
 		var xxx : Int;

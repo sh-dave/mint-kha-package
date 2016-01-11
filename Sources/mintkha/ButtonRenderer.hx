@@ -53,7 +53,7 @@ class ButtonRenderer extends G2Renderer {
 	}
 
     override function ondepth( depth : Float ) {
-		this.depth = depth;
+		this.mydepth = depth;
 		khaRendering.sortByDepth();
     }
 }
