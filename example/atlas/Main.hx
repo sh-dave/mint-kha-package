@@ -111,10 +111,24 @@ class SkinnedExample {
 			}
 		});
 
-		//var checkbox = new mint.Checkbox({
-			//parent : canvas,
-			//x : 384, y : 128, w : 128, h : 16,
-		//});
+		var checkbox = new mint.Checkbox({
+			parent : canvas,
+			x : 384, y : 128, w : 38, h : 36,
+
+			state : false,
+
+			options : {
+				defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkUpSkinId),
+				highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkHoverSkinId),
+				downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkDownSkinId),
+				disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkDisabledSkinId),
+
+				selectedDefaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedUpSkinId),
+				selectedHighlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedHoverSkinId),
+				selectedDownSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedDownSkinId),
+				selectedDisabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedDisabledSkinId),
+			}
+		});
 
 		progress = new mint.Progress({
 			parent : canvas,

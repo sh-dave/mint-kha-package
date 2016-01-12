@@ -3,7 +3,6 @@ package mintkha;
 import mintkha.Skin;
 
 typedef CheckboxOptions = {
-// button
 	var defaultSkin : Skin;
 	var highlightSkin : Skin;
 	var downSkin : Skin;
@@ -50,6 +49,11 @@ class CheckboxRenderer extends G2Renderer {
 
         checkbox.onmouseup.listen(function(e, c) {
 			stateSkin = checkbox.state ? options.selectedHighlightSkin : options.highlightSkin;
+		});
+
+		// TODO (DK) this logic is probably wrong, as we should probably have to show the highlight state when clicking
+		checkbox.onchange.listen(function( newState, oldState )  {
+			stateSkin = checkbox.state ? options.selectedDefaultSkin : options.defaultSkin;
 		});
     }
 

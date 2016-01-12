@@ -1,32 +1,28 @@
 package mintkha.skin;
 
-class AtlasTextureSkin {
-	public var texture : kha.Image;
-	public var x : Float;
-	public var y : Float;
-	public var w : Float;
-	public var h : Float;
+import mintkha.support.Offset;
 
-	public function new( texture : kha.Image, x : Float, y : Float, w : Float, h : Float ) {
+class AtlasTextureSkin {
+	var texture : kha.Image;
+	var x : Float;
+	var y : Float;
+	var w : Float;
+	var h : Float;
+	var offset : Offset;
+
+	public function new( texture : kha.Image, x : Float, y : Float, w : Float, h : Float, ?offset : Offset ) {
 		this.texture = texture;
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		this.h = h;
+		this.offset = offset;
 	}
 
 	public function drawG2( g : kha.graphics2.Graphics, controlX : Float, controlY : Float, controlWidth : Float, controlHeight : Float ) {
-		g.drawScaledSubImage(texture, x, y, w, h, controlX, controlY, controlWidth, controlHeight);
-	}
+		var oh = offset != null ? offset.horizontal : 0;
+		var ov = offset != null ? offset.vertical : 0;
 
-	public static function fromAtlasRegion( texture : kha.Image, atlasModel : mintkha.support.TextureAtlas.AtlasModel, id : String ) : AtlasTextureSkin {
-		var region = Lambda.find(atlasModel.regions, function( region ) { return region.id == id; } );
-
-		if (region == null) {
-			trace('region "${id}" not found in atlas');
-			return null;
-		}
-
-		return new AtlasTextureSkin(texture, region.x, region.y, region.width, region.height);
+		g.drawScaledSubImage(texture, x, y, w, h, controlX + oh, controlY + ov, controlWidth, controlHeight);
 	}
 }

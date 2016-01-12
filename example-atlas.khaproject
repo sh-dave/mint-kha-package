@@ -7,4 +7,7 @@ project.addLibrary('mint');
 
 project.addAssets('assets/**');
 
+project.windowOptions.width = 512;
+project.windowOptions.height = 512;
+
 return project;
