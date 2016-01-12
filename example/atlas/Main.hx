@@ -135,8 +135,8 @@ class SkinnedExample {
 			x : 128, y : 256, w : 128, h : 16,
 
 			options : {
-				backgroundSkin : kha.Color.fromBytes(128, 128, 128),
-				fillSkin : kha.Color.Green,
+				backgroundSkin : new mintkha.skin.ColoredRectSkin(kha.Color.fromBytes(128, 128, 128)),
+				fillSkin : new mintkha.skin.ColoredRectSkin(kha.Color.Green),
 
 				paddingTop : 4,
 				paddingBottom : 4,

@@ -7,8 +7,8 @@ class KenneyBasicTheme {
     public var buttonNineSliceGrid : Rectangle = new Rectangle(6, 22, 38, 1);
 
 	public var buttonUpSkinId = 'blue_button09';
-	public var buttonHoverSkinId = 'blue_button07';
-	public var buttonDownSkinId = 'blue_button10';
+	public var buttonHoverSkinId = 'yellow_button09';
+	public var buttonDownSkinId = 'green_button10';
 	public var buttonDisabledSkinId = 'grey_button11';
 
 	public var buttonDownOffset = new Offset(0, 5);
@@ -16,13 +16,13 @@ class KenneyBasicTheme {
     public var checkNineSliceGrid : Rectangle = new Rectangle(10, 10, 18, 18);
 
 	public var checkUpSkinId = 'blue_boxCross';
-	public var checkHoverSkinId = 'blue_boxCross';
-	public var checkDownSkinId = 'blue_boxCheckmark';
+	public var checkHoverSkinId = 'yellow_boxCross';
+	public var checkDownSkinId = 'green_boxCheckmark';
 	public var checkDisabledSkinId = 'grey_boxCross';
 
 	public var checkSelectedUpSkinId = 'blue_boxCheckmark';
-	public var checkSelectedHoverSkinId = 'blue_boxCheckmark';
-	public var checkSelectedDownSkinId = 'blue_boxCross';
+	public var checkSelectedHoverSkinId = 'yellow_boxCheckmark';
+	public var checkSelectedDownSkinId = 'green_boxCross';
 	public var checkSelectedDisabledSkinId = 'grey_boxCheckmark';
 
 	// 49x49 -> 49x45
