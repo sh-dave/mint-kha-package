@@ -1,12 +1,11 @@
 package mintkha;
 
-// TODO (DK) implements with skin
 typedef ProgressOptions = {
-	var fillSkin : kha.Color;
-	var backgroundSkin : kha.Color;
+	var backgroundSkin : Skin;
+	var fillSkin : Skin;
 
-	//var disabledBackgroundSkin : kha.Color;
-	//var disabledFillSkin : kha.Color;
+	//var disabledBackgroundSkin : Skin;
+	//var disabledFillSkin : Skin;
 
 	var paddingTop : Float;
 	var paddingRight : Float;
@@ -25,20 +24,8 @@ class ProgressRenderer extends G2Renderer {
     }
 
 	override function renderG2( graphics : kha.graphics2.Graphics ) {
-		var colorGuard = graphics.color;
-
-// background skin
-		graphics.color = options.backgroundSkin;
-
-		kha.graphics2.GraphicsExtension.fillPolygon(graphics, control.x, control.y, [
-			new kha.math.Vector2(0, control.h),
-			new kha.math.Vector2(control.w, control.h),
-			new kha.math.Vector2(control.w, 0),
-		]);
-
-// fill skin
-		graphics.color = options.fillSkin;
-
+        options.backgroundSkin.drawG2(graphics, control.x, control.y, control.w, control.h);
+        
 		var pl = options.paddingLeft;
 		var pt = options.paddingTop;
 		var pr = options.paddingRight;
@@ -46,14 +33,8 @@ class ProgressRenderer extends G2Renderer {
 
 		var maxWidth = control.w - pr - pl;
 		var actualWidth = maxWidth * progress.progress;
-
-		kha.graphics2.GraphicsExtension.fillPolygon(graphics, control.x + pl, control.y + pt, [
-			new kha.math.Vector2(0, control.h - pb - pt),
-			new kha.math.Vector2(actualWidth, control.h - pb - pt),
-			new kha.math.Vector2(actualWidth, 0),
-		]);
-
-		graphics.color = colorGuard;
+        
+        options.fillSkin.drawG2(graphics, control.x + pl, control.y + pt, actualWidth, control.h - pt - pb);
 	}
 
     override function ondepth( depth : Float ) {
