@@ -1,7 +1,7 @@
 package mintkha.skin;
 
 class ColoredRectSkin {
-	public var color : kha.Color;
+	var color : kha.Color;
 
 	public function new( color : kha.Color ) {
 		this.color = color;
