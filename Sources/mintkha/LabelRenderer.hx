@@ -26,7 +26,10 @@ class LabelRenderer extends G2Renderer {
     }
 
 	override function renderG2( graphics : kha.graphics2.Graphics ) {
-		stateSkin.drawG2(graphics, control.x, control.y, control.w, control.h);
+		// TODO (DK) is this check neccessary?
+		if (stateSkin != null) {
+			stateSkin.drawG2(graphics, control.x, control.y, control.w, control.h);
+		}
 	}
 
     override function ondepth( depth : Float ) {

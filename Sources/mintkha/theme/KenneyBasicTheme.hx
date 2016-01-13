@@ -25,6 +25,15 @@ class KenneyBasicTheme {
 	public var checkSelectedDownSkinId = 'green_boxCross';
 	public var checkSelectedDisabledSkinId = 'grey_boxCheckmark';
 
+	public var sliderHandleUpSkinId = 'blue_sliderDown';
+	public var sliderHandleHoverSkinId = 'yellow_sliderDown';
+	public var sliderHandleDownSkinId = 'green_sliderDown';
+	public var sliderHandleDisabledSkinId = 'grey_sliderDown';
+
+	public var sliderTrackDefaultSkinId = 'grey_sliderHorizontal';
+	//public var sliderStartTrackDefaultSkinId = 'grey_sliderEnd';
+	//public var sliderEndTrackDefaultSkinId = 'grey_sliderEnd';
+
 	// 49x49 -> 49x45
 	//pressed: 5; 22; 39; 1
 	//public var buttonUpSkinId = 'button-up-skin';

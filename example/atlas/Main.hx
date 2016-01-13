@@ -99,14 +99,12 @@ class SkinnedExample {
 				highlightSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonHoverSkinId, theme.buttonNineSliceGrid),
 				downSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDownSkinId, theme.buttonNineSliceGrid, theme.buttonDownOffset),
 				disabledSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDisabledSkinId, theme.buttonNineSliceGrid),
-				depth : 1,
 
 				label : {
 					defaultSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
 					highlightSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
 					downSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 5)),
 					disabledSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff5b6770), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
-					depth : 0,
 				}
 			}
 		});
@@ -143,6 +141,43 @@ class SkinnedExample {
 				paddingRight : 4,
 				paddingLeft : 4,
 			}
+		});
+
+		var slider = new mint.TrackSlider({
+			parent : canvas,
+			x : 128, y : 384, w : 256, h : 32,
+
+			minimumValue : 0,
+			maximumValue : 100,
+			value : 25,
+
+			trackOptions : {
+				text : null,
+				x : 0, y : 15, w : 256, h : 2,
+
+				options : {
+					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
+					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
+					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
+					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
+
+					label : {} // TODO (DK) this seems unreasonable to have here
+				}
+			},
+
+			handleOptions : {
+				text : null,
+				w : 28, h : 42,
+
+				options : {
+					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleUpSkinId),
+					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleHoverSkinId),
+					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleDownSkinId),
+					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleDisabledSkinId),
+
+					label : {} // TODO (DK) this seems unreasonable to have here
+				}
+			},
 		});
 
 		//var helloLabel = new mint.Label({
