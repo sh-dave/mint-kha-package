@@ -1,5 +1,7 @@
 # mint-kha-package
-Tests to see how well [mint](https://github.com/snowkit/mint) and [Kha](https://github.com/KTXSoftware/Kha) work together
+Tests to see how well [mint](https://github.com/snowkit/mint) and [Kha](https://github.com/KTXSoftware/Kha) work together.
+
+[Html5 Demo](https://sh-dave.github.io/mint-kha-package)
 
 ## progress g2
 ### mint renderer
@@ -19,6 +21,7 @@ Tests to see how well [mint](https://github.com/snowkit/mint) and [Kha](https://
 
 #### todos
 * [] event handling (resizing, etc)
+* [] real depth sorting
 
 ### custom mint controls
 * [wip] TrackSlider - mint.Slider is more like a clickable ProgressBar, so lets see how easy it is to create something better
