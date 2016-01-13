@@ -24,29 +24,25 @@ typedef TrackSliderOptions = {
 
 @:allow(mint.render.Renderer)
 class TrackSlider extends Control {
-	var track : Button;
-	var handle : Button;
-
-    var options : TrackSliderOptions;
-
+	// TODO (DK) do we need to handle them changing => implement as setter property?
     public var minimum = 0.0;
     public var maximum = 1.0;
-    public var value(default, set) : Float = 1.0;
-    public var percent = 1.0;
+    public var value(get, set) : Float;
     public var step : Null<Float>;
     public var vertical = false;
 
-    //var bar_x : Float = 2.0;
-    //var bar_y : Float = 2.0;
-    //var bar_w : Float = 0.0;
-    //var bar_h : Float = 0.0;
+    public var onchange : Signal<Float->Void> = new Signal();
 
-    public var onchange : Signal<Float->Float->Void> = new Signal();
+    var options : TrackSliderOptions;
 
+	var track : Button;
+	var handle : Button;
+
+	var _value : Float = 1.0;
+	var range(get, never) : Float;
     var dragging = false;
 	var dragX = 0;
 	var dragY = 0;
-    var ignore_set = true;
 
     public function new( options : TrackSliderOptions ) {
         this.options = options;
@@ -56,7 +52,7 @@ class TrackSlider extends Control {
 
         minimum = def(options.minimumValue, 0.0);
         maximum = def(options.maximumValue, 1.0);
-        value = def(options.value, maximum);
+        _value = def(options.value, maximum);
         vertical = def(options.vertical, false);
         step = options.step;
 
@@ -64,21 +60,23 @@ class TrackSlider extends Control {
 
 		options.trackOptions.parent = this;
 		options.trackOptions.name = '${name}.track';
-		this.track = new Button(options.trackOptions);
+		track = new Button(options.trackOptions);
 		track.onmousedown.listen(track_mouseDownHandler);
 		track.onmouseup.listen(track_mouseUpHandler);
+		track.onmousemove.listen(track_mouseMoveHandler);
 
 		options.handleOptions.parent = this;
 		options.handleOptions.name = '${name}.handle';
-		this.handle = new Button(options.handleOptions);
+		handle = new Button(options.handleOptions);
 		handle.onmousedown.listen(handle_mouseDownHandler);
 		handle.onmouseup.listen(handle_mouseUpHandler);
+		handle.onmousemove.listen(handle_mouseMoveHandler);
 
         renderer = rendering.get(TrackSlider, this);
 
         oncreate.emit();
 
-        update_value(value);
+        updateValue(value);
     }
 
 	function track_mouseDownHandler( event : MouseEvent, control : Control ) {
@@ -87,89 +85,68 @@ class TrackSlider extends Control {
 	function track_mouseUpHandler( event : MouseEvent, control : Control ) {
 	}
 
+	function track_mouseMoveHandler( event : MouseEvent, control : Control ) {
+	}
+
 	function handle_mouseDownHandler( event : MouseEvent, control : Control ) {
 		if (!dragging) {
 			dragging = true;
 			dragX = event.x;
 			dragY = event.y;
 		}
+
+		//handle.focus();
 	}
 
 	function handle_mouseUpHandler( event : MouseEvent, control : Control ) {
 		if (dragging) {
 			dragging = false;
 		}
+
+		//handle.unfocus();
 	}
 
-	public override function mouseleave( event : MouseEvent ) {
-		super.mouseleave(event);
-		trace('leave');
-		dragging = false;
-		dragX = 0;
-		dragY = 0;
-	}
-
-	public override function mousemove( event : MouseEvent ) {
-		//trace('move: ${dragging}');
-
+	function handle_mouseMoveHandler( event : MouseEvent, control : Control ) {
 		if (dragging) {
-			var dx = event.x - dragX;
-			var dy = event.y - dragY;
-			dragX = event.x;
-			dragY = event.y;
-
-			var hx = vertical ? 0 : dx;
-			var hy = vertical ? dx : 0;
-
-			handle.set_pos(handle.x + hx, handle.y + hy);
-		} else {
-			super.mousemove(event);
+			updateValueFromMouse(event);
 		}
 	}
 
-    inline function get_range() {
-		return maximum - minimum;
-	}
-
-    inline function update_value( value : Float) {
+    function updateValue( value : Float ) {
         value = Helper.clamp(value, minimum, maximum);
 
         if (step != null) {
             value = Math.round(value / step) * step;
         }
 
-        if (vertical) {
-            //bar_w = w - 4;
-            //bar_h = (h - 4) * (_value - min) / (max - min);
-            //bar_y = ((h - ((h - 4) * (_value - min) / (max - min))) - 2);
-            //bar_h = Helper.clamp(bar_h, 1, h - 4);
-        } else {
-            //bar_w = (w - 4) * (_value - min) / (max - min);
-            //bar_w = Helper.clamp(bar_w, 1, w-4);
-            //bar_h = h - 4;
-            //bar_x = 2;
-        }
-
-        percent = value / get_range();
-
-        ignore_set = true;
-            this.value = value;
-        ignore_set = false;
-
-        onchange.emit(value, percent);
-    }
-
-    inline function set_value( value : Float ) : Float {
-
-        if (ignore_set) {
-			return this.value = value;
+		if (vertical) {
+			var vrange = h - handle.h;
+			handle.y_local = vrange * (value / range);
+		} else {
+			var hrange = w - handle.w;
+			handle.x_local = hrange * (value / range);
 		}
 
-        update_value(value);
-        return this.value;
+		_value = value;
+        onchange.emit(value);
+		trace(_value);
     }
 
-    inline function update_value_from_mouse( event : MouseEvent ) {
+	inline function get_value() : Float {
+		return _value;
+	}
+
+    inline function set_value( value : Float ) : Float {
+        updateValue(value);
+        return _value;
+    }
+
+	inline function get_range() : Float {
+		return maximum - minimum;
+	}
+
+	// TODO (DK) remove this -4 / -5 crap from mint.Slider
+    inline function updateValueFromMouse( event : MouseEvent ) {
         if (!vertical) {
             var dx = event.x - x;
 
@@ -181,8 +158,8 @@ class TrackSlider extends Control {
 				dx = w - 4;
 			}
 
-            var v : Float = ((dx - 1) / (w - 5)) * get_range() + minimum;
-            update_value(v);
+            var v : Float = ((dx - 1) / (w - 5)) * range + minimum;
+            updateValue(v);
         } else {
             var dy = (h) - (event.y - y);
 
@@ -194,8 +171,8 @@ class TrackSlider extends Control {
 				dy = h - 4;
 			}
 
-            var v : Float = ((dy - 1) / (h - 5)) * get_range() + minimum;
-            update_value(v);
+            var v : Float = ((dy - 1) / (h - 5)) * range + minimum;
+            updateValue(v);
         }
     }
 }

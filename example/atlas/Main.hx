@@ -20,6 +20,9 @@ class SkinnedExample {
 
 	var canvas : mint.Canvas;
 	var progress : mint.Progress;
+	var pressMeButton : mint.Button;
+	var checkbox : mint.Checkbox;
+	var slider : mint.TrackSlider;
 
 	var progressValue : Float = 0.0;
 
@@ -70,6 +73,10 @@ class SkinnedExample {
 		themeAtlasTexture = kha.Assets.images.basic_sheet;
 	}
 
+	function pressMeButton_onClickHandler( _1, _2 ) {
+		checkbox.state = !checkbox.state;
+	}
+
 	function setupUi() {
 		backbuffer = kha.Image.createRenderTarget(512, 512);
 		rendering = new mintkha.G2Rendering();
@@ -84,7 +91,7 @@ class SkinnedExample {
 
         focusManager = new mint.focus.Focus(canvas);
 
-		var pressMeButton = new mint.Button({
+		pressMeButton = new mint.Button({
 			parent : canvas,
 			x : 128, y : 128, w : 128, h : 64,
 
@@ -93,6 +100,8 @@ class SkinnedExample {
 			align_vertical : TextAlign.center,
 			text_size : 9,
 			bounds_wrap : true,
+
+			onclick : pressMeButton_onClickHandler,
 
 			options : {
 				defaultSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
@@ -109,11 +118,11 @@ class SkinnedExample {
 			}
 		});
 
-		var checkbox = new mint.Checkbox({
+		checkbox = new mint.Checkbox({
 			parent : canvas,
 			x : 384, y : 128, w : 38, h : 36,
 
-			state : false,
+			state : true,
 
 			options : {
 				defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkUpSkinId),
@@ -143,13 +152,14 @@ class SkinnedExample {
 			}
 		});
 
-		var slider = new mint.TrackSlider({
+		slider = new mint.TrackSlider({
 			parent : canvas,
 			x : 128, y : 384, w : 256, h : 32,
 
 			minimumValue : 0,
 			maximumValue : 100,
 			value : 25,
+			//step : 10,
 
 			trackOptions : {
 				text : null,

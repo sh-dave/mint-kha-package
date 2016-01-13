@@ -21,18 +21,12 @@ typedef CheckboxOptions = {
 	//var disabledLabelSkin : kha.Color;
 }
 
-private enum State {
-	None;
-	Hover;
-	Down;
-}
 class CheckboxRenderer extends G2Renderer {
     var checkbox : mint.Checkbox;
 
 	var options : CheckboxOptions;
 
 	var stateSkin : Skin;
-	@:isVar var state(default, set) : State;
 
     public function new( rendering : G2Rendering, control : mint.Checkbox ) {
         super(rendering, this.checkbox = control);
@@ -41,39 +35,59 @@ class CheckboxRenderer extends G2Renderer {
 
 		stateSkin = options.defaultSkin;
 
+		// (DK) we need to register after internal checkbox events, so isfocused works properly
+		checkbox.oncreate.listen(checkbox_onCreateHandler);
+    }
+
+	function checkbox_onCreateHandler() {
         checkbox.onmouseenter.listen(function(e, c) {
-			state = Hover;
+			if (checkbox.isfocused) {
+				stateSkin = checkbox.state ? options.selectedDownSkin : options.downSkin;
+				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.downSkin;
+			} else {
+				stateSkin = checkbox.state ? options.selectedHighlightSkin : options.highlightSkin;
+				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
+			}
 		});
 
         checkbox.onmouseleave.listen(function(e, c) {
-			state = None;
+			if (checkbox.isfocused) {
+				stateSkin = checkbox.state ? options.selectedHighlightSkin : options.highlightSkin;
+				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
+			} else {
+				stateSkin = checkbox.state ? options.selectedDefaultSkin : options.defaultSkin;
+				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.defaultSkin;
+			}
 		});
 
         checkbox.onmousedown.listen(function(e, c) {
-			state = Down;
+			stateSkin = checkbox.state ? options.selectedDownSkin : options.downSkin;
+			//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.downSkin;
 		});
 
         checkbox.onmouseup.listen(function(e, c) {
-			state = Hover;
+			if (checkbox.ishovered) {
+				stateSkin = checkbox.state ? options.selectedHighlightSkin : options.highlightSkin;
+				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
+			} else {
+				stateSkin = checkbox.state ? options.selectedDefaultSkin : options.defaultSkin;
+				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.defaultSkin;
+			}
 		});
 
-		checkbox.onchange.listen(function( newState, oldState )  {
-			updateStateSkin();
-		});
-    }
+		checkbox.onchange.listen(checkbox_onChangeHandler);
 
-	function updateStateSkin() {
-		switch (state) {
-			case None: stateSkin = checkbox.state ? options.selectedDefaultSkin : options.defaultSkin;
-			case Hover: stateSkin = checkbox.state ? options.selectedHighlightSkin : options.highlightSkin;
-			case Down: stateSkin = checkbox.state ? options.selectedDownSkin : options.downSkin;
-		}
+		checkbox_onChangeHandler(checkbox.state, false); // (DK) initial state
 	}
 
-	inline function set_state( value : State ) : State {
-		state = value;
-		updateStateSkin();
-		return state;
+	function checkbox_onChangeHandler( newState, _ ) {
+		// TODO (DK) what if we f.ex. hover over the element while it's state changes?
+
+		if (checkbox.state) {
+			stateSkin = options.selectedDefaultSkin;
+		} else {
+			stateSkin = options.defaultSkin;
+		}
 	}
 
 	override function renderG2( graphics : kha.graphics2.Graphics ) {
