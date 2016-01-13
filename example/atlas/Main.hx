@@ -4,9 +4,6 @@ import mint.types.Types.InteractState;
 import mint.types.Types.MouseButton;
 import mint.types.Types.TextAlign;
 import mintkha.support.Offset;
-import mintkha.support.Rectangle;
-
-import mintkha.skin.NineSliceAtlasTextureSkin;
 
 typedef MyTheme = mintkha.theme.KenneyBasicTheme;
 
@@ -21,8 +18,10 @@ class SkinnedExample {
 	var canvas : mint.Canvas;
 	var progress : mint.Progress;
 	var pressMeButton : mint.Button;
+	var oneSkinButton : mint.Button;
 	var checkbox : mint.Checkbox;
-	var slider : mint.TrackSlider;
+	var hslider : mint.TrackSlider;
+	var vslider : mint.TrackSlider;
 
 	var progressValue : Float = 0.0;
 
@@ -118,6 +117,28 @@ class SkinnedExample {
 			}
 		});
 
+		oneSkinButton = new mint.Button({
+			parent : canvas,
+			x : 128, y : 16, w : 128, h : 64,
+
+			text : 'ONE SKIN',
+			align : TextAlign.center,
+			align_vertical : TextAlign.center,
+			text_size : 9,
+			bounds_wrap : true,
+
+			options : {
+				defaultSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
+
+				label : {
+					defaultSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
+					highlightSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
+					downSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 5)),
+					disabledSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff5b6770), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
+				}
+			}
+		});
+
 		checkbox = new mint.Checkbox({
 			parent : canvas,
 			x : 384, y : 128, w : 38, h : 36,
@@ -152,7 +173,7 @@ class SkinnedExample {
 			}
 		});
 
-		slider = new mint.TrackSlider({
+		hslider = new mint.TrackSlider({
 			parent : canvas,
 			x : 128, y : 384, w : 256, h : 32,
 
@@ -164,6 +185,45 @@ class SkinnedExample {
 			trackOptions : {
 				text : null,
 				x : 0, y : 15, w : 256, h : 2,
+
+				options : {
+					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
+					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
+					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
+					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
+
+					label : {} // TODO (DK) this seems unreasonable to have here
+				}
+			},
+
+			handleOptions : {
+				text : null,
+				w : 28, h : 42,
+
+				options : {
+					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleUpSkinId),
+					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleHoverSkinId),
+					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleDownSkinId),
+					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleDisabledSkinId),
+
+					label : {} // TODO (DK) this seems unreasonable to have here
+				}
+			},
+		});
+
+		vslider = new mint.TrackSlider({
+			parent : canvas,
+			x : 16, y : 16, w : 32, h : 256,
+
+			vertical : true,
+			minimumValue : 0,
+			maximumValue : 100,
+			value : 25,
+			//step : 10,
+
+			trackOptions : {
+				text : null,
+				x : 0, y : 15, w : 2, h : 256,
 
 				options : {
 					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),

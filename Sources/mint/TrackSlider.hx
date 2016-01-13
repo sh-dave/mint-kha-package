@@ -161,7 +161,7 @@ class TrackSlider extends Control {
             var v : Float = ((dx - 1) / (w - 5)) * range + minimum;
             updateValue(v);
         } else {
-            var dy = (h) - (event.y - y);
+            var dy = event.y - y;
 
             if (dy < 1) {
 				dy = 1;
