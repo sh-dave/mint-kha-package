@@ -25,12 +25,20 @@ class KenneyBasicTheme {
 	public var checkSelectedDownSkinId = 'green_boxCross';
 	public var checkSelectedDisabledSkinId = 'grey_boxCheckmark';
 
-	public var sliderHandleUpSkinId = 'blue_sliderDown';
-	public var sliderHandleHoverSkinId = 'yellow_sliderDown';
-	public var sliderHandleDownSkinId = 'green_sliderDown';
-	public var sliderHandleDisabledSkinId = 'grey_sliderDown';
+	public var horizontalSliderHandleUpSkinId = 'blue_sliderDown';
+	public var horizontalSliderHandleHoverSkinId = 'yellow_sliderDown';
+	public var horizontalSliderHandleDownSkinId = 'green_sliderDown';
+	public var horizontalSliderHandleDisabledSkinId = 'grey_sliderDown';
 
-	public var sliderTrackDefaultSkinId = 'grey_sliderHorizontal';
+	public var horizontalSliderTrackDefaultSkinId = 'grey_sliderHorizontal';
+
+	public var verticalSliderHandleUpSkinId = 'blue_sliderRight';
+	public var verticalSliderHandleHoverSkinId = 'yellow_sliderRight';
+	public var verticalSliderHandleDownSkinId = 'green_sliderRight';
+	public var verticalSliderHandleDisabledSkinId = 'grey_sliderRight';
+
+	public var verticalSliderTrackDefaultSkinId = 'grey_sliderVertical';
+
 	//public var sliderStartTrackDefaultSkinId = 'grey_sliderEnd';
 	//public var sliderEndTrackDefaultSkinId = 'grey_sliderEnd';
 

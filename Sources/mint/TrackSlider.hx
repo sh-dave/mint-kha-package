@@ -145,33 +145,14 @@ class TrackSlider extends Control {
 		return maximum - minimum;
 	}
 
-	// TODO (DK) remove this -4 / -5 crap from mint.Slider
     inline function updateValueFromMouse( event : MouseEvent ) {
-        if (!vertical) {
-            var dx = event.x - x;
-
-            if (dx < 1) {
-				dx = 1;
-			}
-
-            if (dx >= w - 4) {
-				dx = w - 4;
-			}
-
-            var v : Float = ((dx - 1) / (w - 5)) * range + minimum;
+        if (vertical) {
+            var dy = event.y - y;
+            var v = (dy / h) * range + minimum;
             updateValue(v);
         } else {
-            var dy = event.y - y;
-
-            if (dy < 1) {
-				dy = 1;
-			}
-
-            if (dy >= h - 4) {
-				dy = h - 4;
-			}
-
-            var v : Float = ((dy - 1) / (h - 5)) * range + minimum;
+            var dx = event.x - x;
+            var v = (dx / w) * range + minimum;
             updateValue(v);
         }
     }

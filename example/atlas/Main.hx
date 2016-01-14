@@ -187,10 +187,7 @@ class SkinnedExample {
 				x : 0, y : 15, w : 256, h : 2,
 
 				options : {
-					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
-					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
-					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
-					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
+					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderTrackDefaultSkinId),
 
 					label : {} // TODO (DK) this seems unreasonable to have here
 				}
@@ -201,10 +198,10 @@ class SkinnedExample {
 				w : 28, h : 42,
 
 				options : {
-					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleUpSkinId),
-					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleHoverSkinId),
-					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleDownSkinId),
-					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleDisabledSkinId),
+					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleUpSkinId),
+					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleHoverSkinId),
+					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDownSkinId),
+					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDisabledSkinId),
 
 					label : {} // TODO (DK) this seems unreasonable to have here
 				}
@@ -223,13 +220,10 @@ class SkinnedExample {
 
 			trackOptions : {
 				text : null,
-				x : 0, y : 15, w : 2, h : 256,
+				x : 15, y : 0, w : 2, h : 253, // TODO (DK) -3px to compensate for the 3px handle shadow, is there a better way to do this?
 
 				options : {
-					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
-					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
-					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
-					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderTrackDefaultSkinId),
+					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderTrackDefaultSkinId),
 
 					label : {} // TODO (DK) this seems unreasonable to have here
 				}
@@ -237,13 +231,13 @@ class SkinnedExample {
 
 			handleOptions : {
 				text : null,
-				w : 28, h : 42,
+				w : 39, h : 31,
 
 				options : {
-					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleUpSkinId),
-					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleHoverSkinId),
-					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleDownSkinId),
-					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.sliderHandleDisabledSkinId),
+					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleUpSkinId),
+					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleHoverSkinId),
+					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleDownSkinId),
+					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleDisabledSkinId),
 
 					label : {} // TODO (DK) this seems unreasonable to have here
 				}
