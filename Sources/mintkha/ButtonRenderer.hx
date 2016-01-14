@@ -32,38 +32,40 @@ class ButtonRenderer extends G2Renderer {
 
 		// TODO (DK) casting is crap, find a better design
 
+		var labelRenderer : mintkha.LabelRenderer = cast button.label.renderer;
+
         button.onmouseenter.listen(function(e, c) {
 			if (button.isfocused) {
 				stateSkin = downSkin;
-				cast (button.label.renderer, LabelRenderer).stateSkin = control.options.options.label.downSkin;
+				labelRenderer.setStateSkin(Down);
 			} else {
 				stateSkin = highlightSkin;
-				cast (button.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
+				labelRenderer.setStateSkin(Highlight);
 			}
 		});
 
         button.onmouseleave.listen(function(e, c) {
 			if (button.isfocused) {
-				stateSkin = highlightSkin;
-				cast (button.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
+				stateSkin = downSkin;
+				labelRenderer.setStateSkin(Down);
 			} else {
 				stateSkin = defaultSkin;
-				cast (button.label.renderer, LabelRenderer).stateSkin = control.options.options.label.defaultSkin;
+				labelRenderer.setStateSkin(None);
 			}
 		});
 
         button.onmousedown.listen(function(e, c) {
 			stateSkin = downSkin;
-			cast (button.label.renderer, LabelRenderer).stateSkin = control.options.options.label.downSkin;
+			labelRenderer.setStateSkin(Down);
 		});
 
         button.onmouseup.listen(function(e, c) {
 			if (button.ishovered) {
 				stateSkin = highlightSkin;
-				cast (button.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
+				labelRenderer.setStateSkin(Highlight);
 			} else {
 				stateSkin = defaultSkin;
-				cast (button.label.renderer, LabelRenderer).stateSkin = control.options.options.label.defaultSkin;
+				labelRenderer.setStateSkin(None);
 			}
 		});
     }

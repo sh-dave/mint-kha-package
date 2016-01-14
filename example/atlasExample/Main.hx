@@ -54,6 +54,8 @@ class SkinnedExample {
 	}
 
     function render( framebuffer : kha.Framebuffer ) {
+		trace('SkinnedExample.render');
+
 		var g = backbuffer.g2;
 
 		g.begin(true, kha.Color.fromBytes(0, 64, 64));
@@ -74,6 +76,12 @@ class SkinnedExample {
 
 	function pressMeButton_onClickHandler( _1, _2 ) {
 		checkbox.state = !checkbox.state;
+
+		if (pressMeButton.label.text == 'PRESS ME!') {
+			pressMeButton.label.text = 'YAY!';
+		} else {
+			pressMeButton.label.text = 'PRESS ME!';
+		}
 	}
 
 	function setupUi() {
@@ -90,6 +98,8 @@ class SkinnedExample {
 
         focusManager = new mint.focus.Focus(canvas);
 
+		var pressMeButtonFont = kha.Assets.fonts.kenvector_future_thin;
+
 		pressMeButton = new mint.Button({
 			parent : canvas,
 			x : 128, y : 128, w : 128, h : 64,
@@ -97,7 +107,7 @@ class SkinnedExample {
 			text : 'PRESS ME!',
 			align : TextAlign.center,
 			align_vertical : TextAlign.center,
-			text_size : 9,
+			text_size : 16,
 			bounds_wrap : true,
 
 			onclick : pressMeButton_onClickHandler,
@@ -109,13 +119,15 @@ class SkinnedExample {
 				disabledSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDisabledSkinId, theme.buttonNineSliceGrid),
 
 				label : {
-					defaultSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
-					highlightSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
-					downSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 5)),
-					disabledSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff5b6770), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
+					defaultSkin : new mintkha.skin.ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 0)),
+					highlightSkin : new mintkha.skin.ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 0)),
+					downSkin : new mintkha.skin.ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 5)),
+					disabledSkin : new mintkha.skin.ColoredLabelSkin(kha.Color.fromValue(0xff5b6770), pressMeButtonFont, new Offset(16, 16 + 0)),
 				}
 			}
 		});
+
+		var oneSkinButtonFont = kha.Assets.fonts.kenvector_future_thin;
 
 		oneSkinButton = new mint.Button({
 			parent : canvas,
@@ -124,17 +136,14 @@ class SkinnedExample {
 			text : 'ONE SKIN',
 			align : TextAlign.center,
 			align_vertical : TextAlign.center,
-			text_size : 9,
+			text_size : 24,
 			bounds_wrap : true,
 
 			options : {
 				defaultSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
 
 				label : {
-					defaultSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
-					highlightSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
-					downSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff0b333c), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 5)),
-					disabledSkin : new mintkha.skin.LabelSkin(kha.Color.fromValue(0xff5b6770), kha.Assets.fonts.kenvector_future_thin, 16, 'PRESS ME!', new Offset(16, 16 + 0)),
+					defaultSkin : new mintkha.skin.ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), oneSkinButtonFont, new Offset(16, 16 + 0)),
 				}
 			}
 		});
@@ -189,7 +198,7 @@ class SkinnedExample {
 				options : {
 					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderTrackDefaultSkinId),
 
-					label : {} // TODO (DK) this seems unreasonable to have here
+					//label : {} // TODO (DK) this seems unreasonable to have here
 				}
 			},
 
@@ -203,7 +212,7 @@ class SkinnedExample {
 					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDownSkinId),
 					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDisabledSkinId),
 
-					label : {} // TODO (DK) this seems unreasonable to have here
+					//label : {} // TODO (DK) this seems unreasonable to have here
 				}
 			},
 		});
@@ -225,7 +234,7 @@ class SkinnedExample {
 				options : {
 					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderTrackDefaultSkinId),
 
-					label : {} // TODO (DK) this seems unreasonable to have here
+					//label : {} // TODO (DK) this seems unreasonable to have here
 				}
 			},
 
@@ -239,26 +248,10 @@ class SkinnedExample {
 					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleDownSkinId),
 					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleDisabledSkinId),
 
-					label : {} // TODO (DK) this seems unreasonable to have here
+					//label : {} // TODO (DK) this seems unreasonable to have here
 				}
 			},
 		});
-
-		//var helloLabel = new mint.Label({
-			//parent : canvas,
-			//x : 128, y : 304, w : 128, h : 16,
-//
-			//text : 'Hello World!',
-			//text_size : 24,
-//
-			//options : {
-				//font : kha.Assets.fonts.kenvector_future,
-				//defaultSkin : kha.Color.Black,
-				//highlightSkin : kha.Color.Yellow,
-				//downSkin : kha.Color.Green,
-				//disabledSkin : kha.Color.fromBytes(128, 128, 128),
-			//}
-		//});
 	}
 
 	var fbw(get, never) : Int;

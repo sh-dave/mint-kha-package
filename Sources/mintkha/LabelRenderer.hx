@@ -1,7 +1,5 @@
 package mintkha;
 
-import mintkha.skin.LabelSkin;
-
 typedef LabelOptions = {
 	var defaultSkin : LabelSkin;
 	var highlightSkin : LabelSkin;
@@ -11,23 +9,43 @@ typedef LabelOptions = {
 
 class LabelRenderer extends G2Renderer {
     var label : mint.Label;
-	var options : LabelOptions;
 
-	// TODO (DK) 'setSkin' function?
-	@:allow(mintkha)
 	var stateSkin : LabelSkin;
+
+	var defaultSkin : LabelSkin;
+	var highlightSkin : LabelSkin;
+	var downSkin : LabelSkin;
+	var disabledSkin : LabelSkin;
 
     public function new( rendering : G2Rendering, control : mint.Label ) {
         super(rendering, this.label = control);
 
-		this.options = control.options.options;
+		var options : LabelOptions = control.options.options;
 
-		stateSkin = options.defaultSkin;
+		stateSkin = defaultSkin = options.defaultSkin;
+		highlightSkin = options.highlightSkin;
+		downSkin = options.downSkin;
+		disabledSkin = options.disabledSkin;
     }
 
+	// TODO (DK) @:allow points to bad design?
+	@:allow(mintkha)
+	function setStateSkin( state : mintkha.ControlState ) {
+		stateSkin = switch (state) {
+			case None: defaultSkin;
+			case Highlight: highlightSkin;
+			case Down: downSkin;
+			case Disabled: disabledSkin;
+		}
+	}
+
 	override function renderG2( graphics : kha.graphics2.Graphics ) {
+		trace('LabelRenderer.renderG2');
+
 		// TODO (DK) is this check neccessary?
 		if (stateSkin != null) {
+			stateSkin.text = label.text;
+			stateSkin.fontSize = Std.int(label.options.text_size);
 			stateSkin.drawG2(graphics, control.x, control.y, control.w, control.h);
 		}
 	}

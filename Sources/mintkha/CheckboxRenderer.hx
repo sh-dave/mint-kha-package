@@ -69,7 +69,7 @@ class CheckboxRenderer extends G2Renderer {
 
         checkbox.onmouseleave.listen(function(e, c) {
 			if (checkbox.isfocused) {
-				stateSkin = checkbox.state ? selectedHighlightSkin : highlightSkin;
+				stateSkin = checkbox.state ? selectedDownSkin : downSkin;
 				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
 			} else {
 				stateSkin = checkbox.state ? selectedDefaultSkin : defaultSkin;

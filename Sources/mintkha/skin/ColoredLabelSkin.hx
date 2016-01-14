@@ -2,18 +2,17 @@ package mintkha.skin;
 
 import mintkha.support.Offset;
 
-class LabelSkin {
+class ColoredLabelSkin {
+	public var font : kha.Font;
+	public var fontSize : Int;
+	public var text : String;
+
 	var color : kha.Color;
-	var font : kha.Font;
-	var fontSize : Int;
-	var text : String;
 	var offset : Offset;
 
-	public function new( color : kha.Color, font : kha.Font, fontSize : Int, text : String, ?offset : Offset = null ) {
+	public function new( color : kha.Color, font : kha.Font, ?offset : Offset = null ) {
 		this.color = color;
 		this.font = font;
-		this.fontSize = fontSize;
-		this.text = text;
 		this.offset = offset;
 	}
 
