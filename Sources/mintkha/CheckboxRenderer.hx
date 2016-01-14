@@ -25,8 +25,6 @@ typedef CheckboxOptions = {
 class CheckboxRenderer extends G2Renderer {
     var checkbox : mint.Checkbox;
 
-	//var options : CheckboxOptions;
-
 	var stateSkin : Skin;
 
 	var defaultSkin : Skin;
@@ -41,9 +39,6 @@ class CheckboxRenderer extends G2Renderer {
 
     public function new( rendering : G2Rendering, control : mint.Checkbox ) {
         super(rendering, this.checkbox = control);
-
-		//stateSkin = options.defaultSkin;
-		//this.options = control.options.options;
 
 		var options : CheckboxOptions = control.options.options;
 

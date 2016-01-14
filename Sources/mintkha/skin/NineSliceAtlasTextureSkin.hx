@@ -32,20 +32,26 @@ class NineSliceAtlasTextureSkin {
 		var oh = offset != null ? offset.horizontal : 0;
 		var ov = offset != null ? offset.vertical : 0;
 
-		g.drawScaledSubImage(texture, x,							y,		leftWidth,		topHeight, 		cx + oh,					cy + ov, 				leftWidth,						topHeight);
-		g.drawScaledSubImage(texture, x + leftWidth,				y,		centerWidth, 	topHeight, 		cx + oh + leftWidth,		cy + ov,				cw - leftWidth - rightWidth,	topHeight);
-		g.drawScaledSubImage(texture, x + leftWidth + centerWidth, 	y,		rightWidth,		topHeight, 		cx + oh + cw - rightWidth,	cy + ov, 				rightWidth,						topHeight);
-
+		var lrx = cx + oh; // left region x
+		var mrx = cx + oh + leftWidth; // middle region x
+		var rrx = cx + oh + cw - rightWidth; // right region x
+		var mrw = cw - leftWidth - rightWidth; // middle region width
+		var mrh = ch - topHeight - bottomHeight - ov; // middle region height
+		var mry = cy + ov + topHeight; // middle region y
 		var msy = y + topHeight; // middle source y
-
-		g.drawScaledSubImage(texture, x,							msy,	leftWidth,		middleHeight, 	cx + oh,					cy + ov + topHeight, 	leftWidth,						ch - topHeight - bottomHeight - ov);
-		g.drawScaledSubImage(texture, x + leftWidth,				msy,	centerWidth, 	middleHeight, 	cx + oh + leftWidth,		cy + ov + topHeight,	cw - leftWidth - rightWidth,	ch - topHeight - bottomHeight - ov);
-		g.drawScaledSubImage(texture, x + leftWidth + centerWidth, 	msy,	rightWidth,		middleHeight, 	cx + oh + cw - rightWidth,	cy + ov + topHeight, 	rightWidth,						ch - topHeight - bottomHeight - ov);
-
 		var bsy = y + topHeight + middleHeight; // bottom source y
+		var bry = cy + ch - bottomHeight; // bottom region y
 
-		g.drawScaledSubImage(texture, x,							bsy,	leftWidth,		bottomHeight, 	cx + oh,					cy + ch - bottomHeight,	leftWidth,						bottomHeight);
-		g.drawScaledSubImage(texture, x + leftWidth,				bsy,	centerWidth,	bottomHeight, 	cx + oh + leftWidth,		cy + ch - bottomHeight,	cw - leftWidth - rightWidth,	bottomHeight);
-		g.drawScaledSubImage(texture, x + leftWidth + centerWidth, 	bsy,	rightWidth,		bottomHeight, 	cx + oh + cw - rightWidth,	cy + ch - bottomHeight,	rightWidth,						bottomHeight);
+		g.drawScaledSubImage(texture, x,							y,		leftWidth,		topHeight, 		lrx,	cy + ov,	leftWidth,		topHeight);
+		g.drawScaledSubImage(texture, x + leftWidth,				y,		centerWidth, 	topHeight, 		mrx,	cy + ov,	mrw,			topHeight);
+		g.drawScaledSubImage(texture, x + leftWidth + centerWidth, 	y,		rightWidth,		topHeight, 		rrx,	cy + ov, 	rightWidth,		topHeight);
+
+		g.drawScaledSubImage(texture, x,							msy,	leftWidth,		middleHeight, 	lrx,	mry, 		leftWidth,		mrh);
+		g.drawScaledSubImage(texture, x + leftWidth,				msy,	centerWidth, 	middleHeight, 	mrx,	mry,		mrw,			mrh);
+		g.drawScaledSubImage(texture, x + leftWidth + centerWidth, 	msy,	rightWidth,		middleHeight, 	rrx,	mry, 		rightWidth,		mrh);
+
+		g.drawScaledSubImage(texture, x,							bsy,	leftWidth,		bottomHeight, 	lrx,	bry,		leftWidth,		bottomHeight);
+		g.drawScaledSubImage(texture, x + leftWidth,				bsy,	centerWidth,	bottomHeight, 	mrx,	bry,		mrw,			bottomHeight);
+		g.drawScaledSubImage(texture, x + leftWidth + centerWidth, 	bsy,	rightWidth,		bottomHeight, 	rrx,	bry,		rightWidth,		bottomHeight);
 	}
 }

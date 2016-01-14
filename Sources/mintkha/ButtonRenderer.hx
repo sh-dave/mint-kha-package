@@ -13,8 +13,6 @@ typedef ButtonOptions = {
 class ButtonRenderer extends G2Renderer {
     var button : mint.Button;
 
-	//var options : ButtonOptions;
-
 	var stateSkin : Skin;
 
 	var defaultSkin : Skin;

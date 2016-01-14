@@ -1,11 +1,13 @@
-var project = new Project('example-atlas');
+var project = new Project('AtlasExample');
 
 project.addSources('Sources');
-project.addSources('example/atlas');
+//project.addSources('SpriterHaxeEngine');
+
+project.addSources('example/atlasExample');
 
 project.addLibrary('mint');
 
-project.addAssets('assets/**');
+project.addAssets('Assets/**');
 
 project.windowOptions.width = 512;
 project.windowOptions.height = 512;
