@@ -3,7 +3,11 @@ package;
 import mint.types.Types.InteractState;
 import mint.types.Types.MouseButton;
 import mint.types.Types.TextAlign;
+import mintkha.skin.ColoredLabelSkin;
+import mintkha.skin.ColoredRectangleSkin;
 import mintkha.support.Offset;
+import mintkha.support.StarlingAtlasXmlReader;
+import mintkha.ThemeTools;
 
 typedef MyTheme = mintkha.theme.KenneyBasicTheme;
 
@@ -70,7 +74,7 @@ class SkinnedExample {
 	}
 
 	function setupTheme() {
-		themeAtlasModel = mintkha.support.StarlingAtlasXmlReader.read(Xml.parse(kha.Assets.blobs.basic_atlas_xml.toString()));
+		themeAtlasModel = StarlingAtlasXmlReader.read(Xml.parse(kha.Assets.blobs.basic_atlas_xml.toString()));
 		themeAtlasTexture = kha.Assets.images.basic_sheet;
 	}
 
@@ -113,16 +117,16 @@ class SkinnedExample {
 			onclick : pressMeButton_onClickHandler,
 
 			options : {
-				defaultSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
-				highlightSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonHoverSkinId, theme.buttonNineSliceGrid),
-				downSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDownSkinId, theme.buttonNineSliceGrid, theme.buttonDownOffset),
-				disabledSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDisabledSkinId, theme.buttonNineSliceGrid),
+				defaultSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
+				highlightSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonHoverSkinId, theme.buttonNineSliceGrid),
+				downSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDownSkinId, theme.buttonNineSliceGrid, theme.buttonDownOffset),
+				disabledSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDisabledSkinId, theme.buttonNineSliceGrid),
 
 				label : {
-					defaultSkin : new mintkha.skin.ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 0)),
-					highlightSkin : new mintkha.skin.ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 0)),
-					downSkin : new mintkha.skin.ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 5)),
-					disabledSkin : new mintkha.skin.ColoredLabelSkin(kha.Color.fromValue(0xff5b6770), pressMeButtonFont, new Offset(16, 16 + 0)),
+					defaultSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 0)),
+					highlightSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 0)),
+					downSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 5)),
+					disabledSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff5b6770), pressMeButtonFont, new Offset(16, 16 + 0)),
 				}
 			}
 		});
@@ -140,10 +144,10 @@ class SkinnedExample {
 			bounds_wrap : true,
 
 			options : {
-				defaultSkin : mintkha.ThemeTools.nineSliceSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
+				defaultSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
 
 				label : {
-					defaultSkin : new mintkha.skin.ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), oneSkinButtonFont, new Offset(16, 16 + 0)),
+					defaultSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), oneSkinButtonFont, new Offset(16, 16 + 0)),
 				}
 			}
 		});
@@ -155,15 +159,15 @@ class SkinnedExample {
 			state : true,
 
 			options : {
-				defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkUpSkinId),
-				highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkHoverSkinId),
-				downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkDownSkinId),
-				disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkDisabledSkinId),
+				defaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkUpSkinId),
+				highlightSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkHoverSkinId),
+				downSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkDownSkinId),
+				disabledSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkDisabledSkinId),
 
-				selectedDefaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedUpSkinId),
-				selectedHighlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedHoverSkinId),
-				selectedDownSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedDownSkinId),
-				selectedDisabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedDisabledSkinId),
+				selectedDefaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedUpSkinId),
+				selectedHighlightSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedHoverSkinId),
+				selectedDownSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedDownSkinId),
+				selectedDisabledSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedDisabledSkinId),
 			}
 		});
 
@@ -172,8 +176,8 @@ class SkinnedExample {
 			x : 128, y : 256, w : 128, h : 16,
 
 			options : {
-				backgroundSkin : new mintkha.skin.ColoredRectSkin(kha.Color.fromBytes(128, 128, 128)),
-				fillSkin : new mintkha.skin.ColoredRectSkin(kha.Color.Green),
+				backgroundSkin : new ColoredRectangleSkin(kha.Color.fromBytes(128, 128, 128)),
+				fillSkin : new ColoredRectangleSkin(kha.Color.Green),
 
 				paddingTop : 4,
 				paddingBottom : 4,
@@ -196,7 +200,7 @@ class SkinnedExample {
 				x : 0, y : 15, w : 256, h : 2,
 
 				options : {
-					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderTrackDefaultSkinId),
+					defaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderTrackDefaultSkinId),
 
 					//label : {} // TODO (DK) this seems unreasonable to have here
 				}
@@ -207,10 +211,10 @@ class SkinnedExample {
 				w : 28, h : 42,
 
 				options : {
-					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleUpSkinId),
-					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleHoverSkinId),
-					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDownSkinId),
-					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDisabledSkinId),
+					defaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleUpSkinId),
+					highlightSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleHoverSkinId),
+					downSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDownSkinId),
+					disabledSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDisabledSkinId),
 
 					//label : {} // TODO (DK) this seems unreasonable to have here
 				}
@@ -232,7 +236,7 @@ class SkinnedExample {
 				x : 15, y : 0, w : 2, h : 253, // TODO (DK) -3px to compensate for the 3px handle shadow, is there a better way to do this?
 
 				options : {
-					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderTrackDefaultSkinId),
+					defaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderTrackDefaultSkinId),
 
 					//label : {} // TODO (DK) this seems unreasonable to have here
 				}
@@ -243,10 +247,10 @@ class SkinnedExample {
 				w : 39, h : 31,
 
 				options : {
-					defaultSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleUpSkinId),
-					highlightSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleHoverSkinId),
-					downSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleDownSkinId),
-					disabledSkin : mintkha.ThemeTools.textureSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleDisabledSkinId),
+					defaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleUpSkinId),
+					highlightSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleHoverSkinId),
+					downSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleDownSkinId),
+					disabledSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.verticalSliderHandleDisabledSkinId),
 
 					//label : {} // TODO (DK) this seems unreasonable to have here
 				}

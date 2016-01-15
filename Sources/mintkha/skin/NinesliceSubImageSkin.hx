@@ -3,7 +3,7 @@ package mintkha.skin;
 import mintkha.support.Offset;
 import mintkha.support.Rectangle;
 
-class NineSliceAtlasTextureSkin {
+class NinesliceSubImageSkin {
 	var texture : kha.Image;
 	var x : Float;
 	var y : Float;

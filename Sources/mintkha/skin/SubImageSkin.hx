@@ -2,7 +2,7 @@ package mintkha.skin;
 
 import mintkha.support.Offset;
 
-class AtlasTextureSkin {
+class SubImageSkin {
 	var texture : kha.Image;
 	var x : Float;
 	var y : Float;

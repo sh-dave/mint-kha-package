@@ -10,6 +10,11 @@ Tests to see how well [mint](https://github.com/snowkit/mint) and [Kha](https://
 * [usable, wip] ProgressRenderer
 * [usable, wip] LabelRenderer
 * [wip] CanvasRenderer
+
+### custom mint controls + renderer
+* [usable, wip] TrackSlider - mint.Slider is more like a clickable ProgressBar, so lets see how easy it is to create something better
+
+#### todos
 * [] DropdownRenderer
 * [] ImageRenderer
 * [] ListRenderer
@@ -18,19 +23,16 @@ Tests to see how well [mint](https://github.com/snowkit/mint) and [Kha](https://
 * [] SliderRenderer
 * [] TextEditRenderer
 * [] WindowRenderer
-
-#### todos
+* 
 * [] event handling (resizing, etc)
 * [] real depth sorting
-
-### custom mint controls
-* [wip] TrackSlider - mint.Slider is more like a clickable ProgressBar, so lets see how easy it is to create something better
+* [] clipping
 
 ### g2 skinning options
-* [usable, wip] AtlasTextureSkin
-* [usable, wip] ColoredRectSkin
-* [usable, wip (needs optimization)] NineSliceAtlasTextureSkin
-* [usable, wip (needs refactoring: text, font + fontSize need to be set for the state skins)] LabelSkin
+* [usable, wip] SubImageSkin - single texture
+* [usable, wip] NinesliceSubImageSkin - nine slice texture
+* [usable, wip] ColoredRectangleSkin - simple colored rectangle as skin
+* [usable, wip] ColoredLabelSkin - font + color
 
 ### g4 skinning options
 * todo

@@ -1,13 +1,13 @@
 package mintkha;
 
-import mintkha.skin.AtlasTextureSkin;
-import mintkha.skin.NineSliceAtlasTextureSkin;
+import mintkha.skin.NinesliceSubImageSkin;
+import mintkha.skin.SubImageSkin;
 import mintkha.support.Offset;
 import mintkha.support.Rectangle;
 import mintkha.support.TextureAtlas.AtlasModel;
 
 class ThemeTools {
-	public static function textureSkin( texture : kha.Image, atlasModel : AtlasModel, id : String, ?offset : Offset = null ) : AtlasTextureSkin {
+	public static function subImageSkin( texture : kha.Image, atlasModel : AtlasModel, id : String, ?offset : Offset = null ) : SubImageSkin {
 		var region = Lambda.find(atlasModel.regions, function( region ) { return region.id == id; } );
 
 		if (region == null) {
@@ -15,10 +15,10 @@ class ThemeTools {
 			return null;
 		}
 
-		return new AtlasTextureSkin(texture, region.x, region.y, region.width, region.height, offset);
+		return new SubImageSkin(texture, region.x, region.y, region.width, region.height, offset);
 	}
 
-	public static function nineSliceSkin( texture : kha.Image, atlasModel : AtlasModel, id : String, grid : Rectangle, ?offset : Offset = null ) : NineSliceAtlasTextureSkin {
+	public static function ninesliceSubImageSkin( texture : kha.Image, atlasModel : AtlasModel, id : String, grid : Rectangle, ?offset : Offset = null ) : NinesliceSubImageSkin {
 		var region = Lambda.find(atlasModel.regions, function( region ) { return region.id == id; } );
 
 		if (region == null) {
@@ -26,6 +26,6 @@ class ThemeTools {
 			return null;
 		}
 
-		return new NineSliceAtlasTextureSkin(texture, region.x, region.y, region.width, region.height, grid, offset);
+		return new NinesliceSubImageSkin(texture, region.x, region.y, region.width, region.height, grid, offset);
 	}
 }
