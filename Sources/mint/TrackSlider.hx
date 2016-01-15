@@ -94,16 +94,12 @@ class TrackSlider extends Control {
 			dragX = event.x;
 			dragY = event.y;
 		}
-
-		//handle.focus();
 	}
 
 	function handle_mouseUpHandler( event : MouseEvent, control : Control ) {
 		if (dragging) {
 			dragging = false;
 		}
-
-		//handle.unfocus();
 	}
 
 	function handle_mouseMoveHandler( event : MouseEvent, control : Control ) {

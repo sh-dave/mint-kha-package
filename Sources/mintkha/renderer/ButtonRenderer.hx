@@ -1,4 +1,4 @@
-package mintkha;
+package mintkha.renderer;
 
 import mint.core.Macros.*;
 import mintkha.Skin;
@@ -32,7 +32,7 @@ class ButtonRenderer extends G2Renderer {
 
 		// TODO (DK) casting is crap, find a better design
 
-		var labelRenderer : mintkha.LabelRenderer = cast button.label.renderer;
+		var labelRenderer : LabelRenderer = cast button.label.renderer;
 
         button.onmouseenter.listen(function(e, c) {
 			if (button.isfocused) {
@@ -71,11 +71,37 @@ class ButtonRenderer extends G2Renderer {
     }
 
 	override function renderG2( graphics : kha.graphics2.Graphics ) {
+		if (!visible) {
+			return;
+		}
+
 		stateSkin.drawG2(graphics, control.x, control.y, control.w, control.h);
 	}
 
     override function ondepth( depth : Float ) {
 		this.mydepth = depth;
 		khaRendering.sortByDepth();
+    }
+
+    //override function onbounds() {
+        ////visual.transform.pos.set_xy(control.x, control.y);
+        ////visual.geometry_quad.resize_xy(control.w, control.h);
+    //}
+
+    override function ondestroy() {
+        //visual.destroy();
+        //visual = null;
+    }
+
+    override function onclip( disable : Bool, x : Float, y : Float, w : Float, h : Float) {
+        //if (disable) {
+            //visual.clip_rect = null;
+        //} else {
+            //visual.clip_rect = new luxe.Rectangle(_x, _y, _w, _h);
+        //}
+    }
+
+    override function onvisible( visible : Bool ) {
+		this.visible = visible;
     }
 }

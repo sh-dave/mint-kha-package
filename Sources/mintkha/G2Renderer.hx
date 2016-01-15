@@ -5,6 +5,8 @@ class G2Renderer extends mint.render.Render {
 
 	public var mydepth : Float;
 
+	var visible : Bool = true;
+
 	public function new( rendering : G2Rendering, control : mint.Control ) {
 		super(this.khaRendering = rendering, control);
 

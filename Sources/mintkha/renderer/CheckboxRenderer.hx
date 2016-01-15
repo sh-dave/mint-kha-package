@@ -1,4 +1,4 @@
-package mintkha;
+package mintkha.renderer;
 
 import mint.core.Macros.*;
 import mintkha.Skin;
@@ -110,8 +110,16 @@ class CheckboxRenderer extends G2Renderer {
 	}
 
 	override function renderG2( graphics : kha.graphics2.Graphics ) {
+		if (!visible) {
+			return;
+		}
+
 		stateSkin.drawG2(graphics, control.x, control.y, control.w, control.h);
 	}
+
+    override function onvisible( visible : Bool ) {
+        this.visible = visible;
+    }
 
     override function ondepth( depth : Float ) {
 		this.mydepth = depth;

@@ -1,4 +1,4 @@
-package mintkha;
+package mintkha.renderer;
 
 typedef TrackSliderOptions = {
 }

@@ -1,4 +1,4 @@
-package mintkha;
+package mintkha.renderer;
 
 typedef ProgressOptions = {
 	var backgroundSkin : Skin;
@@ -24,8 +24,12 @@ class ProgressRenderer extends G2Renderer {
     }
 
 	override function renderG2( graphics : kha.graphics2.Graphics ) {
+		if (!visible) {
+			return;
+		}
+
         options.backgroundSkin.drawG2(graphics, control.x, control.y, control.w, control.h);
-        
+
 		var pl = options.paddingLeft;
 		var pt = options.paddingTop;
 		var pr = options.paddingRight;
@@ -33,9 +37,13 @@ class ProgressRenderer extends G2Renderer {
 
 		var maxWidth = control.w - pr - pl;
 		var actualWidth = maxWidth * progress.progress;
-        
+
         options.fillSkin.drawG2(graphics, control.x + pl, control.y + pt, actualWidth, control.h - pt - pb);
 	}
+
+    override function onvisible( visible : Bool ) {
+        this.visible = visible;
+    }
 
     override function ondepth( depth : Float ) {
 		this.mydepth = depth;

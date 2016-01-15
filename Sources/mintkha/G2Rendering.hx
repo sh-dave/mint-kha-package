@@ -12,13 +12,13 @@ class G2Rendering extends mint.render.Rendering {
 
     override function get<T : mint.Control, T1>( type : Class<T>, control : T ) : T1 {
         return cast switch(type) {
-            case mint.Canvas : new mintkha.CanvasRenderer(this, cast control);
-            case mint.Label : new mintkha.LabelRenderer(this, cast control);
-            case mint.Button : new mintkha.ButtonRenderer(this, cast control);
-            case mint.Checkbox : new mintkha.CheckboxRenderer(this, cast control);
-            case mint.Progress : new mintkha.ProgressRenderer(this, cast control);
+            case mint.Canvas : new mintkha.renderer.CanvasRenderer(this, cast control);
+            case mint.Label : new mintkha.renderer.LabelRenderer(this, cast control);
+            case mint.Button : new mintkha.renderer.ButtonRenderer(this, cast control);
+            case mint.Checkbox : new mintkha.renderer.CheckboxRenderer(this, cast control);
+            case mint.Progress : new mintkha.renderer.ProgressRenderer(this, cast control);
 
-			case mint.TrackSlider : new mintkha.TrackSliderRenderer(this, cast control);
+			case mint.TrackSlider : new mintkha.renderer.TrackSliderRenderer(this, cast control);
 
             //case mint.Image: new mint.render.luxe.Image(this, cast control);
             //case mint.List: new mint.render.luxe.List(this, cast control);
