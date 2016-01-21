@@ -31,6 +31,10 @@ class SkinnedExample {
 
 	var theme = mintkha.theme.KenneyBasicTheme.blueTheme;
 
+	var spriterEngine : spriter.engine.SpriterEngine;
+	var spriterLibrary : spriter.library.KhaG2Library;
+	var assetProvider : spriter.library.KhaG2Library.AssetProvider;
+
 	public function new() {
 		kha.System.init('mintkha-example-atlas', 512, 512, system_initializedHandler);
 	}
@@ -54,7 +58,11 @@ class SkinnedExample {
 			progressValue -= 1.0;
 		}
 
-		progress.progress = progressValue;
+		//progress.progress = progressValue;
+
+		if (spriterEngine != null) {
+			spriterEngine.update();
+		}
 	}
 
     function render( framebuffer : kha.Framebuffer ) {
@@ -64,6 +72,7 @@ class SkinnedExample {
 
 		g.begin(true, kha.Color.fromBytes(0, 64, 64));
 			rendering.renderG2(g);
+			spriterLibrary.renderimpl(g);
 		g.end();
 
 		g = framebuffer.g2;
@@ -74,8 +83,13 @@ class SkinnedExample {
 	}
 
 	function setupTheme() {
-		themeAtlasModel = StarlingAtlasXmlReader.read(Xml.parse(kha.Assets.blobs.basic_atlas_xml.toString()));
-		themeAtlasTexture = kha.Assets.images.basic_sheet;
+		var assets = kha.Assets;
+		themeAtlasModel = StarlingAtlasXmlReader.read(Xml.parse(assets.blobs.basic_atlas_xml.toString()));
+		themeAtlasTexture = assets.images.basic_sheet;
+
+		assetProvider = new mintkha.support.AtlasImageProvider(themeAtlasTexture, themeAtlasModel);
+		spriterLibrary = new spriter.library.KhaG2Library(assetProvider);
+		spriterEngine = new spriter.engine.SpriterEngine(assets.blobs.basic_scml.toString(), null, spriterLibrary);
 	}
 
 	function pressMeButton_onClickHandler( _1, _2 ) {
@@ -104,7 +118,7 @@ class SkinnedExample {
 
 		var pressMeButtonFont = kha.Assets.fonts.kenvector_future_thin;
 
-		pressMeButton = new mint.Button({
+/*		pressMeButton = new mint.Button({
 			parent : canvas,
 			x : 128, y : 128, w : 128, h : 64,
 
@@ -255,6 +269,34 @@ class SkinnedExample {
 					//label : {} // TODO (DK) this seems unreasonable to have here
 				}
 			},
+		});
+*/
+		var animatedButton = new mint.Button({
+			parent : canvas,
+			x : 384, y : 16, w : 128, h : 64,
+
+			text : 'ANIMATED!',
+			align : TextAlign.center,
+			align_vertical : TextAlign.center,
+			text_size : 16,
+			bounds_wrap : true,
+
+			//onclick : pressMeButton_onClickHandler,
+
+			options : {
+				defaultSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
+				highlightSkin : new mintkha.skin.SpriterEntitySkin(spriterEngine, 'blue', 'highlight', new Offset(0, 0)),
+				//highlightSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonHoverSkinId, theme.buttonNineSliceGrid),
+				downSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDownSkinId, theme.buttonNineSliceGrid, theme.buttonDownOffset),
+				disabledSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDisabledSkinId, theme.buttonNineSliceGrid),
+
+				label : {
+					defaultSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 0)),
+					highlightSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 0)),
+					downSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 5)),
+					disabledSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff5b6770), pressMeButtonFont, new Offset(16, 16 + 0)),
+				}
+			}
 		});
 	}
 

@@ -13,7 +13,7 @@ typedef ButtonOptions = {
 class ButtonRenderer extends G2Renderer {
     var button : mint.Button;
 
-	var stateSkin : Skin;
+	var stateSkin(default, set) : Skin;
 
 	var defaultSkin : Skin;
 	var highlightSkin : Skin;
@@ -69,6 +69,18 @@ class ButtonRenderer extends G2Renderer {
 			}
 		});
     }
+
+	inline function set_stateSkin( skin : Skin ) : Skin {
+		if (stateSkin != null && stateSkin.hide != null) {
+			stateSkin.hide();
+		}
+
+		if (skin.show != null) {
+			skin.show();
+		}
+
+		return stateSkin = skin;
+	}
 
 	override function renderG2( graphics : kha.graphics2.Graphics ) {
 		if (!visible) {

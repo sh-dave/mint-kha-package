@@ -54,4 +54,7 @@ class NinesliceSubImageSkin {
 		g.drawScaledSubImage(texture, x + leftWidth,				bsy,	centerWidth,	bottomHeight, 	mrx,	bry,		mrw,			bottomHeight);
 		g.drawScaledSubImage(texture, x + leftWidth + centerWidth, 	bsy,	rightWidth,		bottomHeight, 	rrx,	bry,		rightWidth,		bottomHeight);
 	}
+
+	public function show() {}
+	public function hide() {}
 }
