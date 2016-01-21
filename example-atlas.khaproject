@@ -1,9 +1,9 @@
 var project = new Project('AtlasExample');
 
-project.addSources('Sources');
-//project.addSources('SpriterHaxeEngine');
+project.addSources('src');
+project.addSources('external/SpriterHaxeEngine');
 
-project.addSources('example/atlasExample');
+project.addSources('examples/AtlasExample');
 
 project.addLibrary('mint');
 

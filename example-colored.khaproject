@@ -1,7 +1,7 @@
 var project = new Project('ColoredExample');
 
-project.addSources('Sources');
-project.addSources('example/coloredExample');
+project.addSources('src');
+project.addSources('examples/ColoredExample');
 
 project.addLibrary('mint');
 
