@@ -29,6 +29,7 @@ Tests to see how well [mint](https://github.com/snowkit/mint) and [Kha](https://
 * [] clipping
 
 ### g2 skinning options
+* [wip] SpriterEntitySkin - animated skins
 * [usable, wip] SubImageSkin - single texture
 * [usable, wip] NinesliceSubImageSkin - nine slice texture
 * [usable, wip] ColoredRectangleSkin - simple colored rectangle as skin
