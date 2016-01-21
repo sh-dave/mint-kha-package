@@ -19,10 +19,13 @@ class SubImageSkin {
 		this.offset = offset;
 	}
 
-	public function drawG2( g : kha.graphics2.Graphics, controlX : Float, controlY : Float, controlWidth : Float, controlHeight : Float ) {
+	public function drawG2( g : kha.graphics2.Graphics, cx : Float, cy : Float, cw : Float, ch : Float ) {
 		var oh = offset != null ? offset.horizontal : 0;
 		var ov = offset != null ? offset.vertical : 0;
 
-		g.drawScaledSubImage(texture, x, y, w, h, controlX + oh, controlY + ov, controlWidth, controlHeight);
+		g.drawScaledSubImage(texture, x, y, w, h, cx + oh, cy + ov, cw, ch);
 	}
+
+	public function show( cx : Float, cy : Float, cw : Float, ch : Float ) {}
+	public function hide() {}
 }

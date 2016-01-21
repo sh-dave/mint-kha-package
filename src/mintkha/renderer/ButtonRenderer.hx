@@ -76,7 +76,7 @@ class ButtonRenderer extends G2Renderer {
 		}
 
 		if (skin.show != null) {
-			skin.show();
+			skin.show(button.x, button.y, button.w, button.h);
 		}
 
 		return stateSkin = skin;

@@ -89,7 +89,7 @@ class SkinnedExample {
 
 		assetProvider = new mintkha.support.AtlasImageProvider(themeAtlasTexture, themeAtlasModel);
 		spriterLibrary = new spriter.library.KhaG2Library(assetProvider);
-		spriterEngine = new spriter.engine.SpriterEngine(assets.blobs.basic_scml.toString(), null, spriterLibrary);
+		spriterEngine = new spriter.engine.SpriterEngine(assets.blobs.basic_spriterSkins_scml.toString(), null, spriterLibrary);
 	}
 
 	function pressMeButton_onClickHandler( _1, _2 ) {
@@ -273,7 +273,7 @@ class SkinnedExample {
 */
 		var animatedButton = new mint.Button({
 			parent : canvas,
-			x : 384, y : 16, w : 128, h : 64,
+			x : 128, y : 128, w : 128, h : 64,
 
 			text : 'ANIMATED!',
 			align : TextAlign.center,
@@ -285,7 +285,7 @@ class SkinnedExample {
 
 			options : {
 				defaultSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
-				highlightSkin : new mintkha.skin.SpriterEntitySkin(spriterEngine, 'blue', 'highlight', new Offset(0, 0)),
+				highlightSkin : new mintkha.skin.SpriterEntitySkin(spriterEngine, 'blue', 'highlight', new Offset(64, 32)),
 				//highlightSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonHoverSkinId, theme.buttonNineSliceGrid),
 				downSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDownSkinId, theme.buttonNineSliceGrid, theme.buttonDownOffset),
 				disabledSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDisabledSkinId, theme.buttonNineSliceGrid),

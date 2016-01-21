@@ -24,15 +24,16 @@ class SpriterEntitySkin {
 		//hide = hideImpl;
 	}
 
-	public function drawG2( g : kha.graphics2.Graphics, controlX : Float, controlY : Float, controlWidth : Float, controlHeight : Float ) {
+	public function drawG2( g : kha.graphics2.Graphics, cx : Float, cy : Float, cw : Float, ch : Float ) {
 		var oh = offset != null ? offset.horizontal : 0;
 		var ov = offset != null ? offset.vertical : 0;
-		entity.set(controlX + oh, controlY + ov);
+		entity.set(cx + oh, cy + ov);
 	}
 
-	public function show() {
+	public function show( cx : Float, cy : Float, cw : Float, ch : Float ) {
 		entity = engine.addSpriter(entityId);
 		entity.playAnim(animationId);
+		entity.set(cx, cy);
 	}
 
 	public function hide() {

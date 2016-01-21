@@ -18,4 +18,7 @@ class ColoredRectangleSkin {
 
 		g.color = colorGuard;
 	}
+
+	public function show( cx : Float, cy : Float, cw : Float, ch : Float ) { }
+	public function hide() {}
 }
