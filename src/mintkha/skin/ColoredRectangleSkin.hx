@@ -1,6 +1,7 @@
 package mintkha.skin;
 
-class ColoredRectangleSkin {
+// TODO (DK) remove skin altogether?
+class ColoredRectangleSkin implements Skin {
 	var color : kha.Color;
 
 	public function new( color : kha.Color ) {
@@ -12,6 +13,7 @@ class ColoredRectangleSkin {
 
 		g.color = color;
 
+		// TODO (DK) remove allocs
 		kha.graphics2.GraphicsExtension.fillPolygon(g, cx, cy, [
 			new kha.math.Vector2(0, 0), new kha.math.Vector2(cw, 0), new kha.math.Vector2(cw, ch), new kha.math.Vector2(0, ch)
 		]);

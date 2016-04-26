@@ -1,12 +1,5 @@
 package mintkha.renderer;
 
-typedef LabelOptions = {
-	var defaultSkin : LabelSkin;
-	var highlightSkin : LabelSkin;
-	var downSkin : LabelSkin;
-	var disabledSkin : LabelSkin;
-}
-
 class LabelRenderer extends G2Renderer {
     var label : mint.Label;
 
@@ -20,7 +13,12 @@ class LabelRenderer extends G2Renderer {
     public function new( rendering : G2Rendering, control : mint.Label ) {
         super(rendering, this.label = control);
 
-		var options : LabelOptions = control.options.options;
+		var options : LabelRendererOptions = control.options.options.options;
+
+		if (options == null) {
+			trace('skipping label states');
+			return;
+		}
 
 		stateSkin = defaultSkin = options.defaultSkin;
 		highlightSkin = options.highlightSkin;

@@ -3,36 +3,33 @@ package mintkha.renderer;
 import mint.core.Macros.*;
 import mintkha.Skin;
 
-typedef ButtonOptions = {
-	var defaultSkin : Skin;
-	@:optional var highlightSkin : Skin;
-	@:optional var downSkin : Skin;
-	@:optional var disabledSkin : Skin;
-}
-
 class ButtonRenderer extends G2Renderer {
     var button : mint.Button;
 
 	var stateSkin(default, set) : Skin;
-
 	var defaultSkin : Skin;
 	var highlightSkin : Skin;
 	var downSkin : Skin;
 	var disabledSkin : Skin;
 
+	var highlightMode = HighlightMode.DownWhileActive;
+
     public function new( rendering : G2Rendering, control : mint.Button ) {
         super(rendering, this.button = control);
 
-		var options : ButtonOptions = control.options.options;
+		var options : ButtonRendererOptions = control.options.options;
 		stateSkin = defaultSkin = options.defaultSkin;
 
 		highlightSkin = def(options.highlightSkin, defaultSkin);
 		downSkin = def(options.downSkin, defaultSkin);
 		disabledSkin = def(options.disabledSkin, defaultSkin);
 
-		// TODO (DK) casting is crap, find a better design
+		// TODO (DK) casting is crap, find a better design?
+		var labelRenderer = cast (button.label.renderer, LabelRenderer);
 
-		var labelRenderer : LabelRenderer = cast button.label.renderer;
+		button.onfocused.listen(function( focused : Bool ) {
+
+		});
 
         button.onmouseenter.listen(function(e, c) {
 			if (button.isfocused) {
@@ -46,8 +43,16 @@ class ButtonRenderer extends G2Renderer {
 
         button.onmouseleave.listen(function(e, c) {
 			if (button.isfocused) {
-				stateSkin = downSkin;
-				labelRenderer.setStateSkin(Down);
+				switch (highlightMode) {
+					case HighlightMode.HighlightWhileActive: {
+						stateSkin = highlightSkin;
+						labelRenderer.setStateSkin(Highlight);
+					}
+					case HighlightMode.DownWhileActive: {
+						stateSkin = downSkin;
+						labelRenderer.setStateSkin(Down);
+					}
+				}
 			} else {
 				stateSkin = defaultSkin;
 				labelRenderer.setStateSkin(None);
@@ -71,13 +76,11 @@ class ButtonRenderer extends G2Renderer {
     }
 
 	inline function set_stateSkin( skin : Skin ) : Skin {
-		if (stateSkin != null && stateSkin.hide != null) {
+		if (stateSkin != null) {
 			stateSkin.hide();
 		}
 
-		if (skin.show != null) {
-			skin.show(button.x, button.y, button.w, button.h);
-		}
+		skin.show(button.x, button.y, button.w, button.h);
 
 		return stateSkin = skin;
 	}

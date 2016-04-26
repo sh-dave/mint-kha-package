@@ -3,7 +3,7 @@ package mintkha.skin;
 import mintkha.support.Offset;
 
 // (DK) https://github.com/wighawag/spriter
-class SpriterEntitySkin {
+class SpriterEntitySkin implements Skin {
 	var engine : spriter.Spriter;
 	var scheduler : kha.Scheduler;
 	var entity : spriter.EntityInstance;

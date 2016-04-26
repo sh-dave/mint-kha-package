@@ -1,0 +1,12 @@
+{
+	"name" : "mint-kha-package",
+	"url" : "https://github.com/sh-dave/mint-kha-package",
+	"license" : "",
+	"tags" : [],
+	"description": "",
+	"version" : "0.0.1",
+	"releasenote": "",
+	"contributors": ["sh-dave"],
+	"dependencies": {},
+    "classPath" : "src"
+}

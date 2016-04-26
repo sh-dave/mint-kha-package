@@ -3,7 +3,8 @@ package mintkha.skin;
 import mintkha.support.Offset;
 import mintkha.support.Rectangle;
 
-class NinesliceSubImageSkin {
+// TODO (DK) don't use kha.Image directly, but an AtlasWrapper
+class NinesliceSubImageSkin implements Skin {
 	var texture : kha.Image;
 	var x : Float;
 	var y : Float;
@@ -55,6 +56,9 @@ class NinesliceSubImageSkin {
 		g.drawScaledSubImage(texture, x + leftWidth + centerWidth, 	bsy,	rightWidth,		bottomHeight, 	rrx,	bry,		rightWidth,		bottomHeight);
 	}
 
-	public function show( cx : Float, cy : Float, cw : Float, ch : Float ) {}
-	public function hide() {}
+	public function show( cx : Float, cy : Float, cw : Float, ch : Float ) {
+	}
+
+	public function hide() {
+	}
 }

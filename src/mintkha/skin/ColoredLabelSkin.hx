@@ -2,10 +2,10 @@ package mintkha.skin;
 
 import mintkha.support.Offset;
 
-class ColoredLabelSkin {
+class ColoredLabelSkin implements LabelSkin {
 	public var font : kha.Font;
-	public var fontSize : Int;
-	public var text : String;
+	public var fontSize(null, default) : Int;
+	public var text(null, default) : String;
 
 	var color : kha.Color;
 	var offset : Offset;
@@ -29,10 +29,16 @@ class ColoredLabelSkin {
 		g.drawString(text, cx + oh, cy + ov);
 
 // debugArea
-		//graphics.color = kha.Color.Magenta;
-		//graphics.drawRect(control.x, control.y, control.w, control.h, 2);
+		//g.color = kha.Color.Magenta;
+		//g.drawRect(cx, cy, cw, ch, 2);
 // /debugArea
 
 		g.color = colorGuard;
+	}
+
+	public function show( cx : Float, cy : Float, cw : Float, ch : Float ) {
+	}
+
+	public function hide() {
 	}
 }

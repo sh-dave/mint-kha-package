@@ -3,25 +3,6 @@ package mintkha.renderer;
 import mint.core.Macros.*;
 import mintkha.Skin;
 
-typedef CheckboxOptions = {
-	var defaultSkin : Skin;
-	var highlightSkin : Skin;
-	var downSkin : Skin;
-	var disabledSkin : Skin;
-
-	var selectedDefaultSkin : Skin;
-	var selectedHighlightSkin : Skin;
-	var selectedDownSkin : Skin;
-	var selectedDisabledSkin : Skin;
-
-// label
-	//var labelFont : kha.Font;
-	//var defaultLabelSkin : kha.Color;
-	//var highlightLabelSkin : kha.Color;
-	//var downLabelSkin : kha.Color;
-	//var disabledLabelSkin : kha.Color;
-}
-
 class CheckboxRenderer extends G2Renderer {
     var checkbox : mint.Checkbox;
 
@@ -40,7 +21,7 @@ class CheckboxRenderer extends G2Renderer {
     public function new( rendering : G2Rendering, control : mint.Checkbox ) {
         super(rendering, this.checkbox = control);
 
-		var options : CheckboxOptions = control.options.options;
+		var options : CheckboxRendererOptions = control.options.options;
 
 		defaultSkin = options.defaultSkin;
 		highlightSkin = def(options.highlightSkin, defaultSkin);
@@ -57,6 +38,8 @@ class CheckboxRenderer extends G2Renderer {
     }
 
 	function checkbox_onCreateHandler() {
+		checkbox.oncreate.remove(checkbox_onCreateHandler);
+
         checkbox.onmouseenter.listen(function(e, c) {
 			if (checkbox.isfocused) {
 				stateSkin = checkbox.state ? selectedDownSkin : downSkin;
@@ -92,7 +75,7 @@ class CheckboxRenderer extends G2Renderer {
 			}
 		});
 
-		checkbox.onchange.listen(checkbox_onChangeHandler);
+		checkbox.onchange.listen(checkbox_onChangeHandler); // TODO (DK) we probalby have to unregister at some point?
 
 		checkbox_onChangeHandler(checkbox.state, false); // (DK) initial state
 	}

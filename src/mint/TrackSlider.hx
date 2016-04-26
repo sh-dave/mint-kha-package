@@ -8,20 +8,6 @@ import mint.core.Signal;
 import mint.types.Types.Helper;
 import mint.core.Macros.*;
 
-typedef TrackSliderOptions = {
-    > ControlOptions,
-
-    @:optional var vertical : Bool;
-
-    @:optional var minimumValue : Float;
-    @:optional var maximumValue : Float;
-    @:optional var value : Float;
-    @:optional var step : Null<Float>;
-
-	var trackOptions : ButtonOptions;
-	var handleOptions : ButtonOptions;
-}
-
 @:allow(mint.render.Renderer)
 class TrackSlider extends Control {
 	// TODO (DK) do we need to handle them changing => implement as setter property?
@@ -31,12 +17,12 @@ class TrackSlider extends Control {
     public var step : Null<Float>;
     public var vertical = false;
 
-    public var onchange : Signal<Float->Void> = new Signal();
+    public var onchange : Signal<Float -> Void> = new Signal();
 
     var options : TrackSliderOptions;
 
-	var track : Button;
-	var handle : Button;
+	var track : Button; // TODO (DK) use a button or generic mint.Control?
+	var handle : Button; // TODO (DK) use a button or generic mint.Control?
 
 	var _value : Float = 1.0;
 	var range(get, never) : Float;

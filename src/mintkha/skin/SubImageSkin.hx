@@ -2,7 +2,8 @@ package mintkha.skin;
 
 import mintkha.support.Offset;
 
-class SubImageSkin {
+// TODO (DK) don't use kha.Image directly, but an AtlasWrapper
+class SubImageSkin implements Skin {
 	var texture : kha.Image;
 	var x : Float;
 	var y : Float;

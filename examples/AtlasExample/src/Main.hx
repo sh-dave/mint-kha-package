@@ -11,7 +11,17 @@ import mintkha.ThemeTools;
 
 typedef MyTheme = mintkha.theme.KenneyBasicTheme;
 
-class SkinnedExample {
+/*ControlOptions
+    options - renderer specific
+
+LabelOptions
+    > ControlOptions
+
+ButtonOptions
+    > LabelOptions
+*/
+
+class AtlasExample {
 	var backbuffer : kha.Image;
 	var rendering : mintkha.G2Rendering;
 	var focusManager : mint.focus.Focus;
@@ -21,8 +31,8 @@ class SkinnedExample {
 
 	var canvas : mint.Canvas;
 	var progress : mint.Progress;
-	var pressMeButton : mint.Button;
-	var oneSkinButton : mint.Button;
+	var button1 : mint.Button;
+	var button2 : mint.Button;
 	var checkbox : mint.Checkbox;
 	var hslider : mint.TrackSlider;
 	var vslider : mint.TrackSlider;
@@ -31,16 +41,12 @@ class SkinnedExample {
 
 	var theme = mintkha.theme.KenneyBasicTheme.blueTheme;
 
-	var spriterEngine : spriter.engine.SpriterEngine;
-	var spriterLibrary : spriter.library.KhaG2Library;
-	var assetProvider : spriter.library.KhaG2Library.AssetProvider;
+	//var spriterEngine : spriter.engine.SpriterEngine;
+	//var spriterLibrary : spriter.library.KhaG2Library;
+	//var assetProvider : spriter.library.KhaG2Library.AssetProvider;
 
 	public function new() {
-		kha.System.init('mintkha-example-atlas', 512, 512, system_initializedHandler);
-	}
-
-	function system_initializedHandler() {
-		kha.Assets.loadEverything(assets_loadedHandler);
+		kha.System.init( { title : 'AtlasExample', width : 512, height : 512 }, kha.Assets.loadEverything.bind(assets_loadedHandler));
 	}
 
 	function assets_loadedHandler() {
@@ -60,19 +66,17 @@ class SkinnedExample {
 
 		//progress.progress = progressValue;
 
-		if (spriterEngine != null) {
+/*		if (spriterEngine != null) {
 			spriterEngine.update();
 		}
-	}
+*/	}
 
     function render( framebuffer : kha.Framebuffer ) {
-		trace('SkinnedExample.render');
-
 		var g = backbuffer.g2;
 
 		g.begin(true, kha.Color.fromBytes(0, 64, 64));
 			rendering.renderG2(g);
-			spriterLibrary.renderimpl(g);
+			//spriterLibrary.renderimpl(g);
 		g.end();
 
 		g = framebuffer.g2;
@@ -87,18 +91,28 @@ class SkinnedExample {
 		themeAtlasModel = StarlingAtlasXmlReader.read(Xml.parse(assets.blobs.basic_atlas_xml.toString()));
 		themeAtlasTexture = assets.images.basic_sheet;
 
-		assetProvider = new mintkha.support.AtlasImageProvider(themeAtlasTexture, themeAtlasModel);
-		spriterLibrary = new spriter.library.KhaG2Library(assetProvider);
-		spriterEngine = new spriter.engine.SpriterEngine(assets.blobs.basic_spriterSkins_scml.toString(), null, spriterLibrary);
+		//assetProvider = new mintkha.support.AtlasImageProvider(themeAtlasTexture, themeAtlasModel);
+		//spriterLibrary = new spriter.library.KhaG2Library(assetProvider);
+		//spriterEngine = new spriter.engine.SpriterEngine(assets.blobs.basic_spriterSkins_scml.toString(), null, spriterLibrary);
+	}
+
+	function hslider_onChangeHandler( value : Float ) {
+		button1.w = 128 + value / 100 * 64;
 	}
 
 	function pressMeButton_onClickHandler( _1, _2 ) {
+		trace('pressMeButton_onClickHandler');
+
+		if (checkbox == null) { // TODO (DK) remove me once all demo controls are active again
+			return;
+		}
+
 		checkbox.state = !checkbox.state;
 
-		if (pressMeButton.label.text == 'PRESS ME!') {
-			pressMeButton.label.text = 'YAY!';
+		if (button1.label.text == 'PRESS ME!') {
+			button1.label.text = 'YAY!';
 		} else {
-			pressMeButton.label.text = 'PRESS ME!';
+			button1.label.text = 'PRESS ME!';
 		}
 	}
 
@@ -112,40 +126,52 @@ class SkinnedExample {
 			key_input : true,
 		});
 
-		var a = kha.Assets;
-
         focusManager = new mint.focus.Focus(canvas);
 
-		var pressMeButtonFont = kha.Assets.fonts.kenvector_future_thin;
+		setupButton1();
+		setupCheckbox();
+		createHorizontalTrackSlider();
+	}
 
-/*		pressMeButton = new mint.Button({
+	function setupButton1() {
+		var font = kha.Assets.fonts.kenvector_future_thin;
+
+		var bro : mintkha.renderer.ButtonRendererOptions = {
+			defaultSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
+			highlightSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonHoverSkinId, theme.buttonNineSliceGrid),
+			downSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDownSkinId, theme.buttonNineSliceGrid, theme.buttonDownOffset),
+			disabledSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDisabledSkinId, theme.buttonNineSliceGrid),
+		}
+
+		var lro : mintkha.renderer.LabelRendererOptions = {
+			defaultSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), font, new Offset(16, 16 + 0)),
+			highlightSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), font, new Offset(16, 16 + 0)),
+			downSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), font, new Offset(16, 16 + 5)),
+			disabledSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff5b6770), font, new Offset(16, 16 + 0)),
+		}
+
+		var bo : mint.Button.ButtonOptions = {
 			parent : canvas,
 			x : 128, y : 128, w : 128, h : 64,
 
-			text : 'PRESS ME!',
-			align : TextAlign.center,
-			align_vertical : TextAlign.center,
-			text_size : 16,
-			bounds_wrap : true,
+			label : {
+				text : 'PRESS ME!',
+				align : TextAlign.center,
+				align_vertical : TextAlign.center,
+				text_size : 16,
+				bounds_wrap : true,
+
+				options : lro,
+			},
 
 			onclick : pressMeButton_onClickHandler,
+			options : bro,
+		};
 
-			options : {
-				defaultSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonUpSkinId, theme.buttonNineSliceGrid),
-				highlightSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonHoverSkinId, theme.buttonNineSliceGrid),
-				downSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDownSkinId, theme.buttonNineSliceGrid, theme.buttonDownOffset),
-				disabledSkin : ThemeTools.ninesliceSubImageSkin(themeAtlasTexture, themeAtlasModel, theme.buttonDisabledSkinId, theme.buttonNineSliceGrid),
+		button1 = new mint.Button(bo);
+	}
 
-				label : {
-					defaultSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 0)),
-					highlightSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 0)),
-					downSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff0b333c), pressMeButtonFont, new Offset(16, 16 + 5)),
-					disabledSkin : new ColoredLabelSkin(kha.Color.fromValue(0xff5b6770), pressMeButtonFont, new Offset(16, 16 + 0)),
-				}
-			}
-		});
-
-		var oneSkinButtonFont = kha.Assets.fonts.kenvector_future_thin;
+/*		var oneSkinButtonFont = kha.Assets.fonts.kenvector_future_thin;
 
 		oneSkinButton = new mint.Button({
 			parent : canvas,
@@ -165,26 +191,77 @@ class SkinnedExample {
 				}
 			}
 		});
+*/
 
-		checkbox = new mint.Checkbox({
+	function setupCheckbox() {
+		var cbro : mintkha.renderer.CheckboxRendererOptions = {
+			defaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkUpSkinId),
+			highlightSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkHoverSkinId),
+			downSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkDownSkinId),
+			disabledSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkDisabledSkinId),
+
+			selectedDefaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedUpSkinId),
+			selectedHighlightSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedHoverSkinId),
+			selectedDownSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedDownSkinId),
+			selectedDisabledSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedDisabledSkinId),
+		}
+
+		var cbo : mint.Checkbox.CheckboxOptions = {
 			parent : canvas,
 			x : 384, y : 128, w : 38, h : 36,
 
 			state : true,
 
-			options : {
-				defaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkUpSkinId),
-				highlightSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkHoverSkinId),
-				downSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkDownSkinId),
-				disabledSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkDisabledSkinId),
+			options : cbro,
+		}
 
-				selectedDefaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedUpSkinId),
-				selectedHighlightSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedHoverSkinId),
-				selectedDownSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedDownSkinId),
-				selectedDisabledSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.checkSelectedDisabledSkinId),
-			}
-		});
+		checkbox = new mint.Checkbox(cbo);
+	}
 
+	function createHorizontalTrackSlider() {
+		var tro : mintkha.renderer.ButtonRendererOptions = {
+			defaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderTrackDefaultSkinId),
+		}
+
+		var to : mint.Button.ButtonOptions = {
+			x : 0, y : 15, w : 256, h : 2,
+
+			options : tro,
+			label : { text : null }, // TODO (DK) remove me
+		}
+
+		var hro : mintkha.renderer.ButtonRendererOptions = {
+			defaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleUpSkinId),
+			highlightSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleHoverSkinId),
+			downSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDownSkinId),
+			disabledSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDisabledSkinId),
+		}
+
+		var ho : mint.Button.ButtonOptions = {
+			w : 28, h : 42,
+
+			options : hro,
+			label : { text : null }, // TODO (DK) remove me
+		}
+
+		var tso : mint.TrackSliderOptions = {
+			parent : canvas,
+			x : 128, y : 384, w : 256, h : 32,
+
+			minimumValue : 0,
+			maximumValue : 100,
+			value : 0,
+			//step : 10,
+
+			trackOptions : to,
+			handleOptions : ho,
+		}
+
+		hslider = new mint.TrackSlider(tso);
+		hslider.onchange.listen(hslider_onChangeHandler);
+	}
+
+/*
 		progress = new mint.Progress({
 			parent : canvas,
 			x : 128, y : 256, w : 128, h : 16,
@@ -198,41 +275,6 @@ class SkinnedExample {
 				paddingRight : 4,
 				paddingLeft : 4,
 			}
-		});
-
-		hslider = new mint.TrackSlider({
-			parent : canvas,
-			x : 128, y : 384, w : 256, h : 32,
-
-			minimumValue : 0,
-			maximumValue : 100,
-			value : 25,
-			//step : 10,
-
-			trackOptions : {
-				text : null,
-				x : 0, y : 15, w : 256, h : 2,
-
-				options : {
-					defaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderTrackDefaultSkinId),
-
-					//label : {} // TODO (DK) this seems unreasonable to have here
-				}
-			},
-
-			handleOptions : {
-				text : null,
-				w : 28, h : 42,
-
-				options : {
-					defaultSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleUpSkinId),
-					highlightSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleHoverSkinId),
-					downSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDownSkinId),
-					disabledSkin : ThemeTools.subImageSkin(themeAtlasTexture, themeAtlasModel, theme.horizontalSliderHandleDisabledSkinId),
-
-					//label : {} // TODO (DK) this seems unreasonable to have here
-				}
-			},
 		});
 
 		vslider = new mint.TrackSlider({
@@ -271,7 +313,7 @@ class SkinnedExample {
 			},
 		});
 */
-		var animatedButton = new mint.Button({
+/*		var animatedButton = new mint.Button({
 			parent : canvas,
 			x : 128, y : 128, w : 128, h : 64,
 
@@ -299,16 +341,16 @@ class SkinnedExample {
 			}
 		});
 	}
-
+*/
 	var fbw(get, never) : Int;
 	var fbh(get, never) : Int;
 
 	inline function get_fbw() : Int {
-		return kha.System.pixelWidth;
+		return kha.System.windowWidth(0);
 	}
 
 	inline function get_fbh() : Int {
-		return kha.System.pixelHeight;
+		return kha.System.windowHeight(0);
 	}
 
 	function setupUiEvents() {
@@ -373,6 +415,6 @@ class SkinnedExample {
 
 class Main {
 	public static function main() {
-		new SkinnedExample();
+		new AtlasExample();
 	}
 }

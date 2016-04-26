@@ -1,13 +1,12 @@
 var project = new Project('AtlasExample');
 
-project.addSources('src');
-project.addSources('external/SpriterHaxeEngine');
+project.localLibraryPath = '../../..';
 
-project.addSources('examples/AtlasExample');
-
+project.addLibrary('mint-kha-package');
 project.addLibrary('mint');
 
-project.addAssets('Assets/**');
+project.addAssets('../../assets/**');
+project.addSources('src');
 
 project.windowOptions.width = 512;
 project.windowOptions.height = 512;

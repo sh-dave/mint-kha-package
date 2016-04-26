@@ -3,7 +3,7 @@ package mintkha.skin;
 import mintkha.support.Offset;
 
 // (DK) https://github.com/sh-dave/SpriterHaxeEngine/tree/dev
-class SpriterHaxeEngineEntitySkin {
+class SpriterHaxeEngineEntitySkin implements Skin {
 	var engine : spriter.engine.SpriterEngine;
 	var entity : spriter.engine.Spriter;
 	var offset : Offset;

@@ -1,8 +1,6 @@
 package mintkha;
 
-typedef LabelSkin = {
-	> Skin,
-
-	var text : String;
-	var fontSize : Int;
+interface LabelSkin extends Skin {
+	var text(null, default) : String;
+	var fontSize(null, default) : Int;
 }

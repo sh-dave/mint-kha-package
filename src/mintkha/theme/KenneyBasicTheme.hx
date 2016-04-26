@@ -5,39 +5,37 @@ import mintkha.support.Rectangle;
 
 class KenneyBasicTheme {
     public var buttonNineSliceGrid : Rectangle = new Rectangle(6, 22, 38, 1);
-
-	public var buttonUpSkinId = 'tiles/blue_button09';
-	public var buttonHoverSkinId = 'tiles/yellow_button09';
-	public var buttonDownSkinId = 'tiles/green_button10';
-	public var buttonDisabledSkinId = 'tiles/grey_button11';
-
 	public var buttonDownOffset = new Offset(0, 5);
-
     public var checkNineSliceGrid : Rectangle = new Rectangle(10, 10, 18, 18);
 
-	public var checkUpSkinId = 'tiles/blue_boxCross';
-	public var checkHoverSkinId = 'tiles/yellow_boxCross';
-	public var checkDownSkinId = 'tiles/green_boxCheckmark';
-	public var checkDisabledSkinId = 'tiles/grey_boxCross';
+	public var buttonUpSkinId : String;
+	public var buttonHoverSkinId : String;
+	public var buttonDownSkinId : String;
+	public var buttonDisabledSkinId : String;
 
-	public var checkSelectedUpSkinId = 'tiles/blue_boxCheckmark';
-	public var checkSelectedHoverSkinId = 'tiles/yellow_boxCheckmark';
-	public var checkSelectedDownSkinId = 'tiles/green_boxCross';
-	public var checkSelectedDisabledSkinId = 'tiles/grey_boxCheckmark';
+	public var checkUpSkinId : String;
+	public var checkHoverSkinId : String;
+	public var checkDownSkinId : String;
+	public var checkDisabledSkinId : String;
 
-	public var horizontalSliderHandleUpSkinId = 'tiles/blue_sliderDown';
-	public var horizontalSliderHandleHoverSkinId = 'tiles/yellow_sliderDown';
-	public var horizontalSliderHandleDownSkinId = 'tiles/green_sliderDown';
-	public var horizontalSliderHandleDisabledSkinId = 'tiles/grey_sliderDown';
+	public var checkSelectedUpSkinId : String;
+	public var checkSelectedHoverSkinId : String;
+	public var checkSelectedDownSkinId : String;
+	public var checkSelectedDisabledSkinId : String;
 
-	public var horizontalSliderTrackDefaultSkinId = 'tiles/grey_sliderHorizontal';
+	public var horizontalSliderHandleUpSkinId : String;
+	public var horizontalSliderHandleHoverSkinId : String;
+	public var horizontalSliderHandleDownSkinId : String;
+	public var horizontalSliderHandleDisabledSkinId : String;
 
-	public var verticalSliderHandleUpSkinId = 'tiles/blue_sliderRight';
-	public var verticalSliderHandleHoverSkinId = 'tiles/yellow_sliderRight';
-	public var verticalSliderHandleDownSkinId = 'tiles/green_sliderRight';
-	public var verticalSliderHandleDisabledSkinId = 'tiles/grey_sliderRight';
+	public var horizontalSliderTrackDefaultSkinId : String;
 
-	public var verticalSliderTrackDefaultSkinId = 'tiles/grey_sliderVertical';
+	public var verticalSliderHandleUpSkinId : String;
+	public var verticalSliderHandleHoverSkinId : String;
+	public var verticalSliderHandleDownSkinId : String;
+	public var verticalSliderHandleDisabledSkinId : String;
+
+	public var verticalSliderTrackDefaultSkinId : String;
 
 	//public var sliderStartTrackDefaultSkinId = 'grey_sliderEnd';
 	//public var sliderEndTrackDefaultSkinId = 'grey_sliderEnd';
@@ -49,13 +47,39 @@ class KenneyBasicTheme {
 	//public var buttonDownSkinId = 'button-down-skin';
 	//public var buttonDisabledSkinId = 'button-disabled-skin';
 
-	public function new( color : String ) {
+	public function new( def : String, hov : String, down : String, dis : String ) {
+		buttonUpSkinId = 'tiles/${def}_button09';
+		buttonHoverSkinId = 'tiles/${hov}_button09';
+		buttonDownSkinId = 'tiles/${down}_button10';
+		buttonDisabledSkinId = 'tiles/${dis}_button11';
 
+		checkUpSkinId = 'tiles/${def}_boxCross';
+		checkHoverSkinId = 'tiles/${hov}_boxCross';
+		checkDownSkinId = 'tiles/${down}_boxCheckmark';
+		checkDisabledSkinId = 'tiles/${dis}_boxCross';
+
+		checkSelectedUpSkinId = 'tiles/${def}_boxCheckmark';
+		checkSelectedHoverSkinId = 'tiles/${hov}_boxCheckmark';
+		checkSelectedDownSkinId = 'tiles/${down}_boxCross';
+		checkSelectedDisabledSkinId = 'tiles/${dis}_boxCheckmark';
+
+		horizontalSliderHandleUpSkinId = 'tiles/${def}_sliderDown';
+		horizontalSliderHandleHoverSkinId = 'tiles/${hov}_sliderDown';
+		horizontalSliderHandleDownSkinId = 'tiles/${down}_sliderDown';
+		horizontalSliderHandleDisabledSkinId = 'tiles/${dis}_sliderDown';
+
+		horizontalSliderTrackDefaultSkinId = 'tiles/grey_sliderHorizontal';
+
+		verticalSliderHandleUpSkinId = 'tiles/${def}_sliderRight';
+		verticalSliderHandleHoverSkinId = 'tiles/${hov}_sliderRight';
+		verticalSliderHandleDownSkinId = 'tiles/${down}_sliderRight';
+		verticalSliderHandleDisabledSkinId = 'tiles/${dis}_sliderRight';
+
+		verticalSliderTrackDefaultSkinId = 'tiles/grey_sliderVertical';
 	}
 
-	public static var redTheme = new KenneyBasicTheme('red');
-	public static var greenTheme = new KenneyBasicTheme('green');
-	public static var blueTheme = new KenneyBasicTheme('blue');
-	public static var yellowTheme = new KenneyBasicTheme('yellow');
-	//public static var greyTheme = new KenneyBasicTheme('grey');
+	public static var redTheme = new KenneyBasicTheme('red', 'yellow', 'blue', 'grey');
+	public static var greenTheme = new KenneyBasicTheme('green', 'yellow', 'red', 'grey');
+	public static var blueTheme = new KenneyBasicTheme('blue', 'yellow', 'green', 'grey');
+	public static var yellowTheme = new KenneyBasicTheme('yellow', 'blue', 'red', 'grey');
 }
