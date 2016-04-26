@@ -37,7 +37,3 @@ Tests to see how well [mint](https://github.com/snowkit/mint) and [Kha](https://
 
 ### g4 skinning options
 * todo
-
-## other todos
-* add Kha <del>and mint (is used as haxelib now)</del> as submodules (but i suck at using git, so the installscript is fine for now)
-* <del>set movie size for flash builds to 512x512 for now, otherwise the fonts look distorted b/c of scaling</del>
