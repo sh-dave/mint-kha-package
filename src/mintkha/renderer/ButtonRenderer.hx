@@ -12,7 +12,7 @@ class ButtonRenderer extends G2Renderer {
 	var downSkin : Skin;
 	var disabledSkin : Skin;
 
-	var highlightMode = HighlightMode.DownWhileActive;
+	var highlightMode : HighlightMode;
 
     public function new( rendering : G2Rendering, control : mint.Button ) {
         super(rendering, this.button = control);
@@ -24,12 +24,10 @@ class ButtonRenderer extends G2Renderer {
 		downSkin = def(options.downSkin, defaultSkin);
 		disabledSkin = def(options.disabledSkin, defaultSkin);
 
+		highlightMode = def(options.highlightMode, mintkha.renderer.internal.Defaults.highlightMode);
+
 		// TODO (DK) casting is crap, find a better design?
 		var labelRenderer = cast (button.label.renderer, LabelRenderer);
-
-		button.onfocused.listen(function( focused : Bool ) {
-
-		});
 
         button.onmouseenter.listen(function(e, c) {
 			if (button.isfocused) {

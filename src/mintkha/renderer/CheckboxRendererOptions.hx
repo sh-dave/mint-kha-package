@@ -10,4 +10,6 @@ typedef CheckboxRendererOptions = {
 	var selectedHighlightSkin : Skin;
 	var selectedDownSkin : Skin;
 	var selectedDisabledSkin : Skin;
+
+	@:optional var highlightMode : HighlightMode;
 }

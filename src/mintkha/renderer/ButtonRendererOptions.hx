@@ -5,4 +5,6 @@ typedef ButtonRendererOptions = {
 	@:optional var highlightSkin : Skin;
 	@:optional var downSkin : Skin;
 	@:optional var disabledSkin : Skin;
+
+	@:optional var highlightMode : HighlightMode;
 }

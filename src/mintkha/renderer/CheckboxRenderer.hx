@@ -18,10 +18,14 @@ class CheckboxRenderer extends G2Renderer {
 	var selectedDownSkin : Skin;
 	var selectedDisabledSkin : Skin;
 
+	var highlightMode : HighlightMode;
+
     public function new( rendering : G2Rendering, control : mint.Checkbox ) {
         super(rendering, this.checkbox = control);
 
 		var options : CheckboxRendererOptions = control.options.options;
+
+		highlightMode = def(options.highlightMode, mintkha.renderer.internal.Defaults.highlightMode);
 
 		defaultSkin = options.defaultSkin;
 		highlightSkin = def(options.highlightSkin, defaultSkin);

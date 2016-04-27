@@ -1,8 +1,8 @@
 package mintkha;
 
 enum ControlState {
-	None;
+	None; // TODO (DK) rename to Default?
 	Highlight;
-	Down;
+	Down; // TODO (DK) rename to Active?
 	Disabled;
 }
