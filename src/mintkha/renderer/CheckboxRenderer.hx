@@ -44,49 +44,55 @@ class CheckboxRenderer extends G2Renderer {
 	function checkbox_onCreateHandler() {
 		checkbox.oncreate.remove(checkbox_onCreateHandler);
 
-        checkbox.onmouseenter.listen(function(e, c) {
-			if (checkbox.isfocused) {
-				stateSkin = checkbox.state ? selectedDownSkin : downSkin;
-				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.downSkin;
-			} else {
-				stateSkin = checkbox.state ? selectedHighlightSkin : highlightSkin;
-				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
-			}
-		});
+// TODO (DK) unregister
+        checkbox.onmouseenter.listen(checkbox_onMouseEnterHandler);
+        checkbox.onmouseleave.listen(checkbox_onMouseLeaveHandler);
+        checkbox.onmousedown.listen(checkbox_onMouseDownHandler);
+        checkbox.onmouseup.listen(checkbox_onMouseUpHandler);
+		checkbox.onchange.listen(checkbox_onChangeHandler);
+// TODO (DK) /unregister
 
-        checkbox.onmouseleave.listen(function(e, c) {
-			if (checkbox.isfocused) {
-				stateSkin = checkbox.state ? selectedDownSkin : downSkin;
-				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
-			} else {
-				stateSkin = checkbox.state ? selectedDefaultSkin : defaultSkin;
-				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.defaultSkin;
-			}
-		});
+		checkbox_onChangeHandler(checkbox.state, false); // (DK) inject initial state
+	}
 
-        checkbox.onmousedown.listen(function(e, c) {
+	function checkbox_onMouseUpHandler( e, c ) {
+		if (checkbox.ishovered) {
+			stateSkin = checkbox.state ? selectedHighlightSkin : highlightSkin;
+		} else {
+			stateSkin = checkbox.state ? selectedDefaultSkin : defaultSkin;
+		}
+	}
+
+	function checkbox_onMouseDownHandler( e, c ) {
+		stateSkin = checkbox.state ? selectedDownSkin : downSkin;
+	}
+
+	function checkbox_onMouseEnterHandler( e, c ) {
+		if (checkbox.isfocused) {
 			stateSkin = checkbox.state ? selectedDownSkin : downSkin;
-			//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.downSkin;
-		});
+		} else {
+			stateSkin = checkbox.state ? selectedHighlightSkin : highlightSkin;
+		}
+	}
 
-        checkbox.onmouseup.listen(function(e, c) {
-			if (checkbox.ishovered) {
-				stateSkin = checkbox.state ? selectedHighlightSkin : highlightSkin;
-				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.highlightSkin;
-			} else {
-				stateSkin = checkbox.state ? selectedDefaultSkin : defaultSkin;
-				//cast (checkbox.label.renderer, LabelRenderer).stateSkin = control.options.options.label.defaultSkin;
+	function checkbox_onMouseLeaveHandler( e, c ) {
+		if (checkbox.isfocused) {
+			switch (highlightMode) {
+				case HighlightMode.DownWhileActive: {
+					stateSkin = checkbox.state ? selectedDownSkin : downSkin;
+				}
+				case HighlightMode.HighlightWhileActive: {
+					stateSkin = checkbox.state ? selectedHighlightSkin : highlightSkin;
+				}
 			}
-		});
-
-		checkbox.onchange.listen(checkbox_onChangeHandler); // TODO (DK) we probalby have to unregister at some point?
-
-		checkbox_onChangeHandler(checkbox.state, false); // (DK) initial state
+		} else {
+			stateSkin = checkbox.state ? selectedDefaultSkin : defaultSkin;
+		}
 	}
 
 	function checkbox_onChangeHandler( newState, _ ) {
 		// TODO (DK)
-		//	-what todo if we f.ex. hover over the element while it's state changes?
+		//	-what todo if we f.ex. hover over the element while it's state changes externally?
 		//	-copy code from the eventhandlers in checkbox_onCreateHandler()?
 
 		if (checkbox.state) {
