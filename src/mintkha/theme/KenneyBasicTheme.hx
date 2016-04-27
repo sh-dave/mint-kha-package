@@ -4,6 +4,13 @@ import mintkha.support.Offset;
 import mintkha.support.Rectangle;
 
 class KenneyBasicTheme {
+	public static var redTheme = new KenneyBasicThemeImpl('red', 'yellow', 'blue', 'grey');
+	public static var greenTheme = new KenneyBasicThemeImpl('green', 'yellow', 'red', 'grey');
+	public static var blueTheme = new KenneyBasicThemeImpl('blue', 'yellow', 'green', 'grey');
+	public static var yellowTheme = new KenneyBasicThemeImpl('yellow', 'blue', 'red', 'grey');
+}
+
+private class KenneyBasicThemeImpl {
     public var buttonNineSliceGrid : Rectangle = new Rectangle(6, 22, 38, 1);
 	public var buttonDownOffset = new Offset(0, 5);
     public var checkNineSliceGrid : Rectangle = new Rectangle(10, 10, 18, 18);
@@ -77,9 +84,4 @@ class KenneyBasicTheme {
 
 		verticalSliderTrackDefaultSkinId = 'tiles/grey_sliderVertical';
 	}
-
-	public static var redTheme = new KenneyBasicTheme('red', 'yellow', 'blue', 'grey');
-	public static var greenTheme = new KenneyBasicTheme('green', 'yellow', 'red', 'grey');
-	public static var blueTheme = new KenneyBasicTheme('blue', 'yellow', 'green', 'grey');
-	public static var yellowTheme = new KenneyBasicTheme('yellow', 'blue', 'red', 'grey');
 }

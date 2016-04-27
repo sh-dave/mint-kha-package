@@ -9,18 +9,6 @@ import mintkha.support.Offset;
 import mintkha.support.StarlingAtlasXmlReader;
 import mintkha.ThemeTools;
 
-typedef MyTheme = mintkha.theme.KenneyBasicTheme;
-
-/*ControlOptions
-    options - renderer specific
-
-LabelOptions
-    > ControlOptions
-
-ButtonOptions
-    > LabelOptions
-*/
-
 class AtlasExample {
 	var backbuffer : kha.Image;
 	var rendering : mintkha.G2Rendering;
